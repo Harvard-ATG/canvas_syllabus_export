@@ -6,20 +6,20 @@ import requests
 # Oauth token for testing
 oauthtoken = "1875~6EHVRVunNzwmeaHXOm4Yji3uZOh3baRLVJU4yT6UO4NLnCRUYA0ByAx1pQi1IbGy"
 
+# Sample Course ID
+courseid = 2502
+
 # Base URL
 baseurl = "https://canvas.harvard.edu/api/v1/courses/"
-
-# Course ID
-courseid = 2502
 
 def create_URL ():
 	'''Create URL for API request'''
 	return baseurl + str(courseid)
 
-def fetch_syllabus(id):
-	'''Fetches syllabus for course with given id from API. Returns syllabus in HTML'''
+def fetch_syllabus(id, token):
+	'''Fetches syllabus for course with given id and token from API. Returns syllabus as HTML string'''
 	
-	headers = {"Authorization": "Bearer " + oauthtoken}
+	headers = {"Authorization": "Bearer " + token}
 	params = {'include[]': 'syllabus_body'}
 	requesturl = create_URL()
 
@@ -35,7 +35,7 @@ def HTML_to_PDF(html):
 	'''Converts syllabus in HTML form to PDF'''
 	return pdfkit.from_string(html, False)
 
-def PDF_as_string():
+def PDF_as_string(id, token):
 	'''Returns syllabus PDF as string'''
-	syllabus = fetch_syllabus(courseid)
+	syllabus = fetch_syllabus(id, token)
 	return HTML_to_PDF(syllabus)
