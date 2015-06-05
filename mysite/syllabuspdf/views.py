@@ -8,5 +8,6 @@ def index(request):
 	return render(request,'syllabuspdf/index.html', context)
 
 def pdf_view(request):
-	return HttpResponse(htmltopdf.PDF_as_string(2502, "1875~6EHVRVunNzwmeaHXOm4Yji3uZOh3baRLVJU4yT6UO4NLnCRUYA0ByAx1pQi1IbGy"), content_type='application/pdf')
+	pdf = htmltopdf.PDF_as_string(2502, "1875~6EHVRVunNzwmeaHXOm4Yji3uZOh3baRLVJU4yT6UO4NLnCRUYA0ByAx1pQi1IbGy")
+	return HttpResponse(pdf, content_type='application/pdf')
  

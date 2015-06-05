@@ -1,7 +1,8 @@
 # Given a course id and oauth token (hardcoded right now), exports syllabus as PDF
-# Potential issue: pdfkit is a wrapper for wkhtmltopdf, a command line tool which has to be installed
-import pdfkit
 import requests
+
+from xhtml2pdf import pisa
+from StringIO import StringIO
 
 # Oauth token for testing
 oauthtoken = "1875~6EHVRVunNzwmeaHXOm4Yji3uZOh3baRLVJU4yT6UO4NLnCRUYA0ByAx1pQi1IbGy"
@@ -32,8 +33,10 @@ def fetch_syllabus(id, token):
 	return parsedJSON[u'syllabus_body']
 
 def HTML_to_PDF(html):
-	'''Converts syllabus in HTML form to PDF'''
-	return pdfkit.from_string(html, False)
+	'''Converts HTML string to PDF'''
+	pdf = StringIO()
+	pisaStatus = pisa.CreatePDF(StringIO(html.encode('utf-8')), pdf)
+	return pdf.getvalue()
 
 def PDF_as_string(id, token):
 	'''Returns syllabus PDF as string'''
