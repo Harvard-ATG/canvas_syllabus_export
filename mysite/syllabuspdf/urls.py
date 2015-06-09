@@ -3,5 +3,5 @@ from . import views
 
 urlpatterns = [
 	url(r'^$', views.index, name='index'),
-	url(r'pdf_view/$', views.pdf_view, name='pdf_view')
+	url(r'^syllabus.pdf$', views.SyllabusPDFView.as_view())
 ]

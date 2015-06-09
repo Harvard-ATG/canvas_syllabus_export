@@ -1,4 +1,4 @@
-# Given a course id and oauth token (hardcoded right now), exports syllabus as PDF
+# Helper functions for generation of pdf view
 import requests
 import datetime
 from re import sub

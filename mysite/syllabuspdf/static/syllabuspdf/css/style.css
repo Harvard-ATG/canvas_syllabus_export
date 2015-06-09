@@ -1,0 +1,20 @@
+/* Hides "Generate PDF" link when printing page */
+@media print {
+	#pdflink {
+		display: none;
+	}
+}
+
+#syllabus {
+  width: 100%;
+  table-layout: fixed;
+  margin-bottom: 10px;
+}
+
+#syllabus thead th {
+    text-align: left;
+    background-color: #444;
+    color: #fff;
+    padding: 3px 10px;
+    border-bottom: 1px solid #bbb;
+}
