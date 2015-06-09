@@ -1,4 +1,6 @@
 {% load staticfiles %}
+{% load syllabuspdf_extras %}
+
 <div id="pdflink">
 	<a href="/syllabuspdf/syllabus.pdf">Generate PDF</a>
 </div>
@@ -22,7 +24,7 @@
 	{% for assignment in assignments %}
 	<tbody>
 	  <tr>
-	    <td> {{ assignment.due_at }} </td>
+	    <td> {{ assignment.due_at |format_time }} </td>
 	    <td> {{ assignment.name }} </td>
 	  </tr>
 	</tbody>
