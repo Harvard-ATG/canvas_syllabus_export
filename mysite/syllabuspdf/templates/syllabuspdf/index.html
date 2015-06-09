@@ -1,0 +1,31 @@
+{% load staticfiles %}
+<div id="pdflink">
+	<a href="/syllabuspdf/syllabus.pdf">Generate PDF</a>
+</div>
+
+{% if syllabus %}
+	{% autoescape off %} {{ syllabus }} {% endautoescape %}
+{% endif %}
+
+{% if assignments %}
+<link rel="stylesheet" type="text/css" href="{% static 'syllabuspdf/css/style.css' %}" />
+	<table id="syllabus">
+	<thead>
+	  <tr>
+	    <th scope="col" style="width: 25%;">Date</th>
+	    <th scope="col" style="width: 75%;">
+	    <div style="float: right;"></div>
+	    Details
+	    </th>
+	  </tr>
+	</thead>
+	{% for assignment in assignments %}
+	<tbody>
+	  <tr>
+	    <td> {{ assignment.due_at }} </td>
+	    <td> {{ assignment.name }} </td>
+	  </tr>
+	</tbody>
+	{% endfor %}
+	</table>
+{% endif %}
