@@ -1,10 +1,11 @@
+{% load syllabuspdf_extras %}
+
 {% if syllabus %}
 	{% autoescape off %} {{ syllabus }} {% endautoescape %}
 {% endif %}
 
 {% if assignments %}
 	<table id="syllabus">
-	<the{% load staticfiles %}ad>
 	  <tr>
 	    <th scope="col" style="width: 25%;">Date</th>
 	    <th scope="col" style="width: 75%;">
@@ -16,10 +17,12 @@
 	{% for assignment in assignments %}
 	<tbody>
 	  <tr>
-	    <td> {{ assignment.due_at }} </td>
+	    <td> {{ assignment.due_at|format_time }} </td>
 	    <td> {{ assignment.name }} </td>
 	  </tr>
 	</tbody>
 	{% endfor %}
 	</table>
 {% endif %}
+
+
