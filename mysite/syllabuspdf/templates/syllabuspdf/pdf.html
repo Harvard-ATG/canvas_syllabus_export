@@ -4,21 +4,38 @@
 	{% autoescape off %} {{ syllabus }} {% endautoescape %}
 {% endif %}
 
-{% if assignments %}
+<style type="text/css">
+#syllabus {
+  width: 100%;
+  table-layout: fixed;
+  margin-bottom: 10px;
+}
+
+#syllabus th {
+    text-align: left;
+    background-color: #444;
+    color: #fff;
+    padding: 3px 10px;
+    border-bottom: 1px solid #bbb;
+}
+</style>
+
+{% if events %}
 	<table id="syllabus">
 	  <tr>
-	    <th scope="col" style="width: 25%;">Date</th>
-	    <th scope="col" style="width: 75%;">
+	    <th scope="col" style="width: 25%;" align="left">Date</th>
+	    <th scope="col" style="width: 75%;" align="left">
 	    <div style="float: right;"></div>
 	    Details
 	    </th>
 	  </tr>
 	</thead>
-	{% for assignment in assignments %}
+	{% for event in events %}
 	<tbody>
 	  <tr>
-	    <td> {{ assignment.due_at|format_time }} </td>
-	    <td> {{ assignment.name }} </td>
+	    <td> {{ event.end_at|format_date }} </td>
+	    <td> {{ event.title }} </td>
+	    <td> {% format_time event.start_at event.end_at %} </td>
 	  </tr>
 	</tbody>
 	{% endfor %}

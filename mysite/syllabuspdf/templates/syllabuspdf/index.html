@@ -9,7 +9,7 @@
 	{% autoescape off %} {{ syllabus }} {% endautoescape %}
 {% endif %}
 
-{% if assignments %}
+{% if events %}
 <link rel="stylesheet" type="text/css" href="{% static 'syllabuspdf/css/style.css' %}" />
 	<table id="syllabus">
 	<thead>
@@ -21,11 +21,12 @@
 	    </th>
 	  </tr>
 	</thead>
-	{% for assignment in assignments %}
+	{% for event in events %}
 	<tbody>
 	  <tr>
-	    <td> {{ assignment.due_at |format_time }} </td>
-	    <td> {{ assignment.name }} </td>
+	    <td> {{ event.end_at |format_date }} </td>
+	    <td> {{ event.title }} </td>
+	    <td> {% format_time event.start_at event.end_at %} </td>
 	  </tr>
 	</tbody>
 	{% endfor %}
