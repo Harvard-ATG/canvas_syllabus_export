@@ -19,6 +19,7 @@ def fetch_syllabus(id, token):
 
 	return syllabus['syllabus_body']
 
+
 def fetch_allevents(id, token):
 	'''Fetches assignments and events for course with given id and token'''
 
