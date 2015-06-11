@@ -31,7 +31,7 @@ def fetch_allevents(id):
 	assignparams = {"all_events": "true", "type" : "assignment", "context_codes[]" : "course_" + str(id)}
 	eventparams = {"all_events": "true", "context_codes[]" : "course_" + str(id)} 
 
-	# Make requests
+	# Make requests, making sure to get all the data
 	assignments = get_all_list_data(req_context, base.get, baseurl + "/v1/calendar_events", params=assignparams, auth_token=oauthtoken)
 	events = get_all_list_data(req_context, base.get, baseurl + "/v1/calendar_events", params=eventparams, auth_token=oauthtoken)
 
@@ -43,3 +43,15 @@ def fetch_allevents(id):
 
 	return sortedevents
 
+def fetch_assigngroups(id):
+	'''Fetches assignment groups for course with given id'''
+	# Create request context
+	req_context = request_context.RequestContext(oauthtoken, baseurl)
+
+	# URL for request
+	url = baseurl + "/v1/courses/" + str(id) + "/assignment_groups"
+
+	# Make request, making sure to get all results
+	groups = get_all_list_data(req_context, base.get, url, auth_token=oauthtoken)
+
+	return groups
