@@ -15,7 +15,7 @@
 	<thead>
 	  <tr>
 	    <th scope="col" style="width: 25%;">Date</th>
-	    <th scope="col" style="width: 75%;" colspan="2">
+	    <th scope="col" style="width: 75%;" rowspan="2">
 	    <div style="float: right;"></div>
 	    Details
 	    </th>
@@ -25,8 +25,15 @@
 	<tbody>
 	  <tr>
 	    <td> {{ event.end_at |format_date }} </td>
-	    <td> {{ event.title }} </td>
-	    <td> {% format_time event.start_at event.end_at %} </td>
+	    <td> <b> {{ event.title }} </b> </td>
+	    <!-- Displays time for event. -->
+	    <!-- <td> {% format_time event.start_at event.end_at %} </td> -->
+	  </tr>
+	  <tr>
+	  	<td> </td>
+	  	{% autoescape off %}
+	  	<td> {{ event.description|escape_None }} </td>
+	  	{% endautoescape %}
 	  </tr>
 	</tbody>
 	{% endfor %}

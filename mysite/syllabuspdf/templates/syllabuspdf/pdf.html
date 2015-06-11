@@ -24,8 +24,8 @@
 	<table id="syllabus">
 	  <tr>
 	    <th scope="col" style="width: 25%;" align="left">Date</th>
-	    <th scope="col" style="width: 75%;" align="left" colspan="2">
-	    <div style="float: right;"></div>
+	    <th scope="col" style="width: 75%;" align="left" >
+	    <div style="float: right;" rowspan="2"></div>
 	    Details
 	    </th>
 	  </tr>
@@ -34,8 +34,14 @@
 	<tbody>
 	  <tr>
 	    <td> {{ event.end_at|format_date }} </td>
-	    <td> {{ event.title }} </td>
-	    <td> {% format_time event.start_at event.end_at %} </td>
+	    <td> <b> {{ event.title }} </b> </td>
+	    <!--<td> {% format_time event.start_at event.end_at %} </td>-->
+	  </tr>
+	  <tr>
+	  	<td></td>
+	  	{% autoescape off %}
+	  	<td> {{ event.description|escape_None }} </td>
+	  	{% endautoescape %}
 	  </tr>
 	</tbody>
 	{% endfor %}

@@ -60,6 +60,9 @@ def format_time(startat, endat):
 		end = eformatted.strftime("%I:%M%p")
 		return start + " to " + end
 
-
-
-
+@register.filter
+def escape_None(str):
+	'''Substitutes an empty string when the event description is None'''
+	if str is None:
+		return ''
+	return str
