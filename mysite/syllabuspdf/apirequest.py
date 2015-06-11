@@ -1,6 +1,7 @@
 # Makes Canvas API requests using the Canvas Python SDK
 from canvas_sdk.client import auth, base, request_context
 from canvas_sdk.utils import get_all_list_data
+from collections import deque
 
 oauthtoken = "1875~6EHVRVunNzwmeaHXOm4Yji3uZOh3baRLVJU4yT6UO4NLnCRUYA0ByAx1pQi1IbGy"
 
@@ -21,7 +22,7 @@ def fetch_syllabus(id):
 	return syllabus['syllabus_body']
 
 def fetch_allevents(id):
-	'''Fetches assignments and events for course with given id and token'''
+	'''Fetches assignments and events for course with given id'''
 
 	# Create request context
 	req_context = request_context.RequestContext(oauthtoken, baseurl)
@@ -40,5 +41,9 @@ def fetch_allevents(id):
 	# Sort assignments by time
 	sortedevents = sorted(allevents, key = lambda a: a['end_at'])
 
+	# Move undated events to end of list
+	for event in sortedevents:
+		if event['all_day_date'] is None:
+			sortedevents.append(sortedevents.pop(0))
 	return sortedevents
 

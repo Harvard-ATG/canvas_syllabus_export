@@ -6,8 +6,8 @@ from xhtml2pdf import pisa
 from StringIO import StringIO
 
 def index(request):
-	syllabus = fetch_syllabus(1876)
-	events = fetch_allevents(1876)
+	syllabus = fetch_syllabus(2381)
+	events = fetch_allevents(2381)
 	context = {'syllabus': syllabus, 'events': events}
 	return render(request,'syllabuspdf/index.html', context)
 
