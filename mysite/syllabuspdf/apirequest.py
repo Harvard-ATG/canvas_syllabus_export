@@ -41,9 +41,5 @@ def fetch_allevents(id):
 	# Sort assignments by time
 	sortedevents = sorted(allevents, key = lambda a: a['end_at'])
 
-	# Move undated events to end of list
-	for event in sortedevents:
-		if event['all_day_date'] is None:
-			sortedevents.append(sortedevents.pop(0))
 	return sortedevents
 
