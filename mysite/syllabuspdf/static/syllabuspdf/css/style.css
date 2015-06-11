@@ -11,15 +11,12 @@
   margin-bottom: 10px;
 }
 
-#syllabus thead th {
+#syllabus th {
   text-align: left;
   background-color: #444;
   color: #fff;
   padding: 3px 10px;
   border-bottom: 1px solid #bbb;
-}
-
-#syllabus thead th a {
   font-size: 0.8em;
   color: #aaa;
 }

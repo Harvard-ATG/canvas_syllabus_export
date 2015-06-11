@@ -1,4 +1,3 @@
-{% load staticfiles %}
 {% load syllabuspdf_extras %}
 
 <div id="pdflink">
@@ -9,14 +8,36 @@
 	{% autoescape off %} {{ syllabus }} {% endautoescape %}
 {% endif %}
 
+<style>
+/* Hides "Generate PDF" link when printing page */
+@media print {
+	#pdflink {
+		display: none;
+	}
+}
+
+#syllabus {
+  width: 100%;
+  table-layout: fixed;
+  margin-bottom: 10px;
+}
+
+#syllabus th {
+  text-align: left;
+  background-color: #444;
+  color: #fff;
+  padding: 3px 10px;
+  border-bottom: 1px solid #bbb;
+}
+</style>
+
 {% if events %}
-<link rel="stylesheet" type="text/css" href="{% static 'syllabuspdf/css/style.css' %}" />
 	<table id="syllabus">
 	<thead>
 	  <tr>
 	    <th scope="col" style="width: 25%;">Date</th>
-	    <th scope="col" style="width: 75%;" rowspan="2">
-	    <div style="float: right;"></div>
+	    <th scope="col" style="width: 75%;">
+	    <div style="float: right;" rowspan="2"></div>
 	    Details
 	    </th>
 	  </tr>
