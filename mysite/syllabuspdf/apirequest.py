@@ -9,7 +9,6 @@ baseurl = "https://canvas.harvard.edu/api"
 
 def fetch_syllabus(id):
 	'''Fetches syllabus for course with given id from API. Returns syllabus as HTML string'''
-	
 	# Create request context
 	req_context = request_context.RequestContext(oauthtoken, baseurl)
 
@@ -23,7 +22,6 @@ def fetch_syllabus(id):
 
 def fetch_allevents(id):
 	'''Fetches assignments and events for course with given id'''
-
 	# Create request context
 	req_context = request_context.RequestContext(oauthtoken, baseurl)
 
@@ -38,8 +36,8 @@ def fetch_allevents(id):
 	# Merge lists
 	allevents = assignments + events
 
-	# Sort assignments by time
-	sortedevents = sorted(allevents, key = lambda a: a['end_at'])
+	# Sort assignments by time and move unsorted ones to the end
+	sortedevents = append_undated(sorted(allevents, key = lambda a: a['end_at']))
 
 	return sortedevents
 
@@ -55,3 +53,12 @@ def fetch_assigngroups(id):
 	groups = get_all_list_data(req_context, base.get, url, auth_token=oauthtoken)
 
 	return groups
+
+def append_undated(events):
+	'''Moves all undated events in an event list to the end'''
+	undated = filter(lambda e: e['end_at'] is None, events)
+	# Create new list, filtering out undated events
+	filtered = filter(lambda e: e['end_at'] is not None, events)
+	# Append undated events to filtered list
+	finallist = filtered + undated[::-1]
+	return finallist
