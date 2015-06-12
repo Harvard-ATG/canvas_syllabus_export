@@ -1,14 +1,15 @@
 from django.shortcuts import render
 from django.http import HttpResponse
-from apirequest import fetch_syllabus, fetch_allevents
+from apirequest import fetch_syllabus, fetch_allevents, fetch_assigngroups
 
 from xhtml2pdf import pisa
 from StringIO import StringIO
 
 def index(request):
-	syllabus = fetch_syllabus(775)
-	events = fetch_allevents(775)
-	context = {'syllabus': syllabus, 'events': events}
+	syllabus = fetch_syllabus(1876)
+	events = fetch_allevents(1876)
+	groups = fetch_assigngroups(1876)
+	context = {'syllabus': syllabus, 'events': events, 'groups': groups}
 	return render(request,'syllabuspdf/index.html', context)
 
 def pdf_view(request):

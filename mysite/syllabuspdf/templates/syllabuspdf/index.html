@@ -16,23 +16,40 @@
 	}
 }
 
+/* Set all fonts to serif for easier readibility once printed */
+* {
+	font-family: serif;
+}
+
 #syllabus {
-  width: 100%;
-  table-layout: fixed;
-  margin-bottom: 10px;
+	width: 100%;
+	table-layout: fixed;
 }
 
 #syllabus th {
-  text-align: left;
-  background-color: #444;
-  color: #fff;
-  padding: 3px 10px;
-  border-bottom: 1px solid #bbb;
+	text-align: left;
+	background-color: #444;
+	color: #fff;
+	padding: 3px 10px;
+	border-bottom: 1px solid #bbb;
+}
+
+#summary {
+	width: 50%;
+	table-layout: fixed;
+}
+
+#summary th {
+	text-align: left;
+	background-color: #444;
+	color: #fff;
+	padding: 3px 10px;
+	border-bottom: 1px solid #bbb;
 }
 </style>
 
 {% if events %}
-	<table id="syllabus">
+	<table id="syllabus" cellpadding="3">
 	<thead>
 	  <tr>
 	    <th scope="col" style="width: 25%;">Date</th>
@@ -48,7 +65,7 @@
 	    <td> {{ event.end_at |format_date }} </td>
 	    <td> <b> {{ event.title }} </b> </td>
 	    <!-- Displays time for event. -->
-	    <!-- <td> {% format_time event.start_at event.end_at %} </td> -->
+	    <!--<td> {% format_time event.start_at event.end_at %} </td> -->
 	  </tr>
 	  <tr>
 	  	<td> </td>
@@ -60,3 +77,22 @@
 	{% endfor %}
 	</table>
 {% endif %}
+
+{% if groups %}
+ <table id="summary" cellpadding="3">
+    <thead>
+    <tr>
+      <th scope='col' align='left'>Group</th>
+      <th scope='col' align='left'>Weight</th>
+    </tr>
+    </thead>
+    <tbody>
+    	{% for group in groups %}
+        <tr>
+          <td>{{ group.name }}</td>
+          <td> {{ group.group_weight }}% </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+  </table>
+  {% endif %}
