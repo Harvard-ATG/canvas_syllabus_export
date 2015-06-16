@@ -6,5 +6,6 @@ class SettingsForm(forms.Form):
 	descriptions = forms.BooleanField(label="Event Descriptions", initial=True, required=False)
 	times = forms.BooleanField(label="Event Times", initial=True, required=False)
 	weights = forms.BooleanField(label="Assignment Weights", initial=True, required=False)
+	hidden_field = forms.CharField(widget=forms.HiddenInput(), initial='field', required=False)
 
 	
