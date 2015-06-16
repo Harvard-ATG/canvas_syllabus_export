@@ -9,14 +9,14 @@ from django_auth_lti.middleware import LTIAuthMiddleware
 
 from forms import SettingsForm
 
-courseid = 1876
+courseid = None
 
 def index(request):
 	# Instantiate LTIAuth middleware and process request
 	mw = LTIAuthMiddleware()
 	mw.process_request(request)
 	# Get course id from session
-	#courseid = request.session['LTI_LAUNCH']['custom_canvas_course_id']
+	courseid = request.session['LTI_LAUNCH']['custom_canvas_course_id']
 
 	syllabus = fetch_syllabus(courseid)
 	events = fetch_allevents(courseid)
