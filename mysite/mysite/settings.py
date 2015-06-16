@@ -70,6 +70,7 @@ LTI_SETUP = {
     "EXTENSION_PARAMETERS": {
         "canvas.instructure.com": {
             "privacy_level": "public",
+            #"course_home_sub_navigation": parameters {...}
             "course_navigation": {
                 "enabled": "true",
                 "default": "disabled",
