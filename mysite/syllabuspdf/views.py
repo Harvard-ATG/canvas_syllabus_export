@@ -9,27 +9,30 @@ from django_auth_lti.middleware import LTIAuthMiddleware
 
 from forms import SettingsForm
 
-courseid = None
+courseid = 1876
 
 def index(request):
 	# Instantiate LTIAuth middleware and process request
 	mw = LTIAuthMiddleware()
 	mw.process_request(request)
 	# Get course id from session
-	try:
-		courseid = request.session['LTI_LAUNCH']['custom_canvas_course_id']
-	except:
-		return HttpResponse("Course ID not found")
+	#try:
+	#	courseid = request.session['LTI_LAUNCH']['custom_canvas_course_id']
+	#except:
+	#	return HttpResponse("Course ID not found")
 	syllabus = fetch_syllabus(courseid)
 	events = fetch_allevents(courseid)
 	groups = fetch_assigngroups(courseid)
 
-	if request.method == 'GET':
+	if 'hidden_field' in request.GET:
 		form = SettingsForm(request.GET)
 		if form.is_valid():
 			settings = form.cleaned_data
-			context = {'syllabus': syllabus, 'events': events, 'groups': groups, 'form': form, 'settings': settings}
-	
+	else:
+		form = SettingsForm()
+		settings = {'syllabus' : True, 'events' : True, 'descriptions': True, 'times': True, 'weights':True, 'hidden_field':"fieldx"}
+
+	context = {'syllabus': syllabus, 'events': events, 'groups': groups, 'form': form, 'settings': settings}
 	return render(request,'syllabuspdf/index.html', context)
 
 def pdf_view(request):
