@@ -1,10 +1,14 @@
 {% load syllabuspdf_extras %}
-
 <div id="pdflink">
-	<a href="/syllabuspdf/syllabus.pdf">Generate PDF</a>
+	<form action="" method="get">
+    	{{ form }}
+    	<input type="submit" value="Display" />
+	</form>
+	<!--<a href="/syllabuspdf/syllabus.pdf">Generate PDF</a>-->
+	<input type="button" onClick="window.print()" value="Generate PDF"/>
 </div>
 
-{% if syllabus %}
+{% if syllabus and settings.syllabus %}
 	{% autoescape off %} {{ syllabus }} {% endautoescape %}
 {% endif %}
 
@@ -48,12 +52,12 @@
 }
 </style>
 
-{% if events %}
+{% if events and settings.events %}
 	<table id="syllabus" cellpadding="3">
 	<thead>
 	  <tr>
 	    <th scope="col" style="width: 25%;">Date</th>
-	    <th scope="col" style="width: 75%;">
+	    <th scope="col" style="width: 75%;" colspan="2">
 	    <div style="float: right;" rowspan="2"></div>
 	    Details
 	    </th>
@@ -64,21 +68,24 @@
 	  <tr>
 	    <td> {{ event.end_at |format_date }} </td>
 	    <td> <b> {{ event.title }} </b> </td>
-	    <!-- Displays time for event. -->
-	    <!--<td> {% format_time event.start_at event.end_at %} </td> -->
+	    {% if settings.times %}
+	    <td align="right"> {% format_time event.start_at event.end_at %} </td> 
+	    {% endif %}
 	  </tr>
 	  <tr>
 	  	<td> </td>
+	  	{% if settings.descriptions %}
 	  	{% autoescape off %}
 	  	<td> {{ event.description|escape_None }} </td>
 	  	{% endautoescape %}
+	  	{% endif %}
 	  </tr>
 	</tbody>
 	{% endfor %}
 	</table>
 {% endif %}
 
-{% if groups %}
+{% if groups and settings.weights %}
  <table id="summary" cellpadding="3">
     <thead>
     <tr>
@@ -95,4 +102,4 @@
         {% endfor %}
     </tbody>
   </table>
-  {% endif %}
+{% endif %}

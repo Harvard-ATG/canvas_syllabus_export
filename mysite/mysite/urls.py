@@ -15,8 +15,11 @@ Including another URLconf
 """
 from django.conf.urls import include, url
 from django.contrib import admin
+import django_app_lti.urls
 
 urlpatterns = [
-	url(r'syllabuspdf/', include('syllabuspdf.urls')),
+	# Include the lti app's urls
+	url(r'^lti/', include(django_app_lti.urls, namespace="lti")),
+	url(r'syllabuspdf/', include('syllabuspdf.urls', namespace="syllabuspdf")),
     url(r'^admin/', include(admin.site.urls)),
 ]

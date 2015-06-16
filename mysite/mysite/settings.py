@@ -37,7 +37,10 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'syllabuspdf'
+    'syllabuspdf',
+    'django_auth_lti',
+    'django_app_lti',
+
 )
 
 MIDDLEWARE_CLASSES = (
@@ -47,9 +50,40 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.auth.middleware.SessionAuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
-    'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    #'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'django.middleware.security.SecurityMiddleware',
+    'django_auth_lti.middleware.LTIAuthMiddleware'
 )
+
+AUTHENTICATION_BACKENDS = (
+    'django.contrib.auth.backends.ModelBackend',
+    'django_auth_lti.backends.LTIAuthBackend',
+)
+
+# Add LTI configuration settings (for django-app-lti)
+LTI_SETUP = {
+    "TOOL_TITLE": "Syllabus Export",
+    "TOOL_DESCRIPTION": "Exports course syllabus as html, with additional option of generating a PDF",
+    "LAUNCH_URL": "lti:launch",
+    "INITIALIZE_MODELS": False,
+    "LAUNCH_REDIRECT_URL": "syllabuspdf:index",
+    "EXTENSION_PARAMETERS": {
+        "canvas.instructure.com": {
+            "privacy_level": "public",
+            "course_navigation": {
+                "enabled": "true",
+                "default": "disabled",
+                "text": "Syllabus Export (local host)",
+            }
+        }
+    }
+}
+
+# Add LTI oauth credentials (for django-auth-lti)
+LTI_OAUTH_CREDENTIALS = {
+    "mykey":"mysecret",
+    "myotherkey": "myothersecret",
+}
 
 ROOT_URLCONF = 'mysite.urls'
 

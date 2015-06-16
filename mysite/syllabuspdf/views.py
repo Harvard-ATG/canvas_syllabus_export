@@ -5,11 +5,29 @@ from apirequest import fetch_syllabus, fetch_allevents, fetch_assigngroups
 from xhtml2pdf import pisa
 from StringIO import StringIO
 
+from django_auth_lti.middleware import LTIAuthMiddleware
+
+from forms import SettingsForm
+
+courseid = 1876
+
 def index(request):
-	syllabus = fetch_syllabus(1876)
-	events = fetch_allevents(1876)
-	groups = fetch_assigngroups(1876)
-	context = {'syllabus': syllabus, 'events': events, 'groups': groups}
+	# Instantiate LTIAuth middleware and process request
+	mw = LTIAuthMiddleware()
+	mw.process_request(request)
+	# Get course id from session
+	#courseid = request.session['LTI_LAUNCH']['custom_canvas_course_id']
+
+	syllabus = fetch_syllabus(courseid)
+	events = fetch_allevents(courseid)
+	groups = fetch_assigngroups(courseid)
+
+	if request.method == 'GET':
+		form = SettingsForm(request.GET)
+		if form.is_valid():
+			settings = form.cleaned_data
+			context = {'syllabus': syllabus, 'events': events, 'groups': groups, 'form': form, 'settings': settings}
+	
 	return render(request,'syllabuspdf/index.html', context)
 
 def pdf_view(request):
