@@ -28,3 +28,6 @@ node_modules
 
 # ignore pyc files
 *.pyc
+
+# ignore secure.py
+*secure.py
