@@ -15,7 +15,7 @@ def index(request):
 	# Instantiate LTIAuth middleware and process request
 	mw = LTIAuthMiddleware()
 	mw.process_request(request)
-	# Get course id from session
+	# Get course id from session (need to test this)
 	#try:
 	#	courseid = request.session['LTI_LAUNCH']['custom_canvas_course_id']
 	#except:
@@ -30,7 +30,7 @@ def index(request):
 			settings = form.cleaned_data
 	else:
 		form = SettingsForm()
-		settings = {'syllabus' : True, 'events' : True, 'descriptions': True, 'times': True, 'weights':True, 'hidden_field':"fieldx"}
+		settings = {'syllabus' : True, 'events' : True, 'descriptions': True, 'times': True, 'weights':True, 'hidden_field':"field"}
 
 	context = {'syllabus': syllabus, 'events': events, 'groups': groups, 'form': form, 'settings': settings}
 	return render(request,'syllabuspdf/index.html', context)
