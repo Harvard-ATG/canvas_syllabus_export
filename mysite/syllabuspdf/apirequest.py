@@ -44,8 +44,8 @@ def fetch_allevents(id):
 	# Merge lists
 	allevents = assignments + events
 
-	# Sort assignments by time and move unsorted ones to the end
-	sortedevents = append_undated(sorted(allevents, key = lambda a: a['end_at']))
+	# Sort events
+	sortedevents = sort_events(allevents)
 
 	return sortedevents
 
@@ -64,6 +64,10 @@ def fetch_assigngroups(id):
 	groups = get_all_list_data(req_context, base.get, url, auth_token=oauthtoken)
 
 	return groups
+
+def sort_events(events):
+	'''Sorts assignments by time and moves unsorted ones to the end'''
+	return append_undated(sorted(events, key = lambda a: a['end_at']))
 
 def append_undated(events):
 	'''Moves all undated events in an event list to the end'''
