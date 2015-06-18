@@ -1,4 +1,5 @@
 from django.test import TestCase
+from syllabuspdf.views import index
 
 class SyllabusPDFTestCase(TestCase):
 	def test_index(self):
@@ -11,3 +12,5 @@ class SyllabusPDFTestCase(TestCase):
 		self.assertTrue('form' in r.context)
 		self.assertTrue('settings' in r.context)
 		self.assertEqual(r.context['settings'], {'syllabus' : True, 'events' : True, 'descriptions': True, 'times': True, 'weights':True, 'hidden_field':"field"})
+
+

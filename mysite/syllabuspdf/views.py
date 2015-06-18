@@ -15,7 +15,7 @@ def index(request):
 	# Instantiate LTIAuth middleware and process request
 	mw = LTIAuthMiddleware()
 	mw.process_request(request)
-	# Get course id from session (need to test this)
+	# Get course id from session
 	#try:
 	#	courseid = request.session['LTI_LAUNCH']['custom_canvas_course_id']
 	#except:
