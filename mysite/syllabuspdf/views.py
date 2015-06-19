@@ -16,10 +16,10 @@ def index(request):
 	mw = LTIAuthMiddleware()
 	mw.process_request(request)
 	# Get course id from session
-	#try:
-	#	courseid = request.session['LTI_LAUNCH']['custom_canvas_course_id']
-	#except:
-	#	return HttpResponse("Course ID not found")
+	try:
+		courseid = request.session['LTI_LAUNCH']['custom_canvas_course_id']
+	except:
+		return HttpResponse("Course ID not found")
 	syllabus = fetch_syllabus(courseid)
 	events = fetch_allevents(courseid)
 	groups = fetch_assigngroups(courseid)
