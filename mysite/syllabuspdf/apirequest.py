@@ -1,9 +1,11 @@
 # Makes Canvas API requests using the Canvas Python SDK
 from canvas_sdk.client import auth, base, request_context
 from canvas_sdk.utils import get_all_list_data
-from collections import deque
 
-from secure import SECURE_SETTINGS
+try:
+	from secure import SECURE_SETTINGS
+except ImportError:
+	from fixtures.securedummy import SECURE_SETTINGS
 
 oauthtoken = SECURE_SETTINGS.get('oauthtoken', None)
 
