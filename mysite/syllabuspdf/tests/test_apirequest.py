@@ -1,19 +1,7 @@
 from django.test import TestCase
-from syllabuspdf.apirequest import fetch_syllabus, fetch_allevents, fetch_assigngroups, sort_events, append_undated
+from syllabuspdf.apirequest import sort_events, append_undated
 
 class ApiRequestTestCase(TestCase):
-	def test_fetch_syllabus(self):
-		assert(fetch_syllabus(2502) is not None)
-		assert(isinstance(fetch_syllabus(2502), basestring))
-
-	def test_fetch_allevents(self):
-		assert(fetch_allevents(2502) is not None)
-		assert(isinstance(fetch_allevents(2502), list))
-
-	def test_fetch_assigngroups(self):
-		assert(fetch_assigngroups(2502) is not None)
-		assert(isinstance(fetch_assigngroups(2502), list))
-
 	def test_sort_events(self):
 		e1 = {'end_at': None}
 		e2 = {'end_at': None}
