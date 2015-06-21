@@ -5,7 +5,7 @@ from canvas_sdk.utils import get_all_list_data
 try:
 	from secure import SECURE_SETTINGS
 except ImportError:
-	from dummy.securedummy import SECURE_SETTINGS
+	from fixtures.dummysecure import SECURE_SETTINGS
 
 oauthtoken = SECURE_SETTINGS.get('oauthtoken', None)
 
