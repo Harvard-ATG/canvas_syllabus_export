@@ -71,7 +71,7 @@
 	    <td> {{ event.end_at |format_date }} </td>
 	    <td> <b> {{ event.title }} </b> </td>
 	    {% if settings.times %}
-	    <td align="right"> <b> {% format_time event.start_at event.end_at %} </b> </td> 
+	    <td align="right"> <i> {% format_time event.start_at event.end_at %} </i> </td> 
 	    {% endif %}
 	  </tr>
 	  <tr>
