@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/Harvard-ATG/canvas-syllabus-export.png?branch=dev)](https://travis-ci.org/Harvard-ATG/canvas-syllabus-export)
+[![Build Status](https://travis-ci.org/Harvard-ATG/canvas-syllabus-export.svg?branch=master)](https://travis-ci.org/Harvard-ATG/canvas-syllabus-export)
 
 # Canvas Syllabus Export
 Canvas LTI tool for exporting a course syllabus as a PDF 
