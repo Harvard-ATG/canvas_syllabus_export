@@ -2,16 +2,9 @@ from django.shortcuts import render
 from django.http import HttpResponse
 from apirequest import fetch_syllabus, fetch_allevents, fetch_assigngroups
 
-from django_auth_lti.middleware import LTIAuthMiddleware
-
 from forms import SettingsForm
 
-courseid = 1876
-
 def index(request):
-	# Instantiate LTIAuth middleware and process request
-	mw = LTIAuthMiddleware()
-	mw.process_request(request)
 	# Get course id from session
 	try:
 		courseid = request.session['LTI_LAUNCH']['custom_canvas_course_id']
