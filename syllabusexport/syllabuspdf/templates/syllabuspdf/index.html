@@ -1,10 +1,10 @@
 {% load syllabuspdf_extras %}
+<b>Display</b>
 <div id="pdflink">
 	<form action="" method="get">
     	{{ form }}
-    	<input type="submit" value="Display" />
+    	<input type="submit" value="Preview"/>
 	</form>
-	<!--<a href="/syllabuspdf/syllabus.pdf">Generate PDF</a>-->
 	<input type="button" onClick="window.print()" value="Generate PDF"/>
 </div>
 
@@ -25,40 +25,42 @@
 	font-family: serif;
 }
 
-#syllabus {
+#events {
 	width: 100%;
 	table-layout: fixed;
 }
 
-#syllabus th {
+#events th {
 	text-align: left;
 	background-color: #444;
 	color: #fff;
-	padding: 3px 10px;
 	border-bottom: 1px solid #bbb;
 }
 
-#summary {
+#weights {
 	width: 50%;
 	table-layout: fixed;
 }
 
-#summary th {
+#weights th {
 	text-align: left;
 	background-color: #444;
 	color: #fff;
-	padding: 3px 10px;
 	border-bottom: 1px solid #bbb;
+}
+
+.settings {
+	display: list-item;
 }
 </style>
 
 {% if events and settings.events %}
-	<table id="syllabus" cellpadding="3">
+	<table id="events" cellpadding="3">
+	<caption style="text-align:left"> <b> Course Schedule </b> </caption>
 	<thead>
 	  <tr>
-	    <th scope="col" style="width: 25%;">Date</th>
-	    <th scope="col" style="width: 75%;" colspan="2">
-	    <div style="float: right;" rowspan="2"></div>
+	    <th scope="col" style="width: 15%;">Date</th>
+	    <th scope="col" style="width: 85%;" colspan="2">
 	    Details
 	    </th>
 	  </tr>
@@ -69,14 +71,14 @@
 	    <td> {{ event.end_at |format_date }} </td>
 	    <td> <b> {{ event.title }} </b> </td>
 	    {% if settings.times %}
-	    <td align="right"> {% format_time event.start_at event.end_at %} </td> 
+	    <td align="right"> <b> {% format_time event.start_at event.end_at %} </b> </td> 
 	    {% endif %}
 	  </tr>
 	  <tr>
 	  	<td> </td>
 	  	{% if settings.descriptions %}
 	  	{% autoescape off %}
-	  	<td> {{ event.description|escape_None }} </td>
+	  	<td colspan="2"> {{ event.description|escape_None }} </td>
 	  	{% endautoescape %}
 	  	{% endif %}
 	  </tr>
@@ -86,7 +88,8 @@
 {% endif %}
 
 {% if groups and settings.weights %}
- <table id="summary" cellpadding="3">
+ <table id="weights" cellpadding="3">
+ 	<caption style="text-align:left"> <b> Assignment Weights </b> </caption>
     <thead>
     <tr>
       <th scope='col' align='left'>Group</th>
