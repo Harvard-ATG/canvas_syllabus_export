@@ -74,6 +74,7 @@ LTI_SETUP = {
                 "enabled": "true",
                 "default": "enabled",
                 "text": "Syllabus Export (local host)",
+                "visibility": "admins"
             }
         }
     }
