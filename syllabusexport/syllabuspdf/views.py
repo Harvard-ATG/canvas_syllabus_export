@@ -13,7 +13,7 @@ def index(request):
 	# Course ID for testing purposes only
 	courseid = 1876
 	syllabus = fetch_syllabus(courseid)
-	events = fetch_allevents(courseid)
+	(dated, undated) = fetch_allevents(courseid)
 	groups = fetch_assigngroups(courseid)
 
 	if 'hidden_field' in request.GET:
@@ -22,7 +22,13 @@ def index(request):
 			settings = form.cleaned_data
 	else:
 		form = SettingsForm()
-		settings = {'syllabus' : True, 'events' : True, 'descriptions': True, 'times': True, 'weights':True, 'hidden_field':"field"}
+		settings = {'syllabus' : True, 'dated_events' : True, 'undated_events' : False, 'descriptions': False, 'times': True, 'weights':True, 'hidden_field':"field"}
+
+	events = []
+	if settings['dated_events']:
+		events += dated
+	if settings['undated_events']:
+		events += undated
 
 	context = {'syllabus': syllabus, 'events': events, 'groups': groups, 'form': form, 'settings': settings}
 	return render(request,'syllabuspdf/index.html', context)

@@ -54,7 +54,7 @@
 }
 </style>
 
-{% if events and settings.events %}
+{% if settings.dated_events or settings.undated_events %}
 	<table id="events" cellpadding="3">
 	<caption style="text-align:left"> <b> Course Schedule </b> </caption>
 	<thead>

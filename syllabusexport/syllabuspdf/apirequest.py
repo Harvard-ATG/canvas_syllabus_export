@@ -46,10 +46,10 @@ def fetch_allevents(id):
 	# Merge lists
 	allevents = assignments + events
 
-	# Sort events
-	sortedevents = sort_events(allevents)
+	# Sort and filter, separating into a tuple
+	filtered = filter_undated(sort_events(allevents))
 
-	return sortedevents
+	return filtered
 
 def fetch_assigngroups(id):
 	'''Fetches assignment groups for course with given id'''
@@ -68,14 +68,14 @@ def fetch_assigngroups(id):
 	return groups
 
 def sort_events(events):
-	'''Sorts assignments by time and moves unsorted ones to the end'''
-	return append_undated(sorted(events, key = lambda a: a['end_at']))
+	'''Sorts assignments by time'''
+	return sorted(events, key = lambda a: a['end_at'])
 
-def append_undated(events):
-	'''Moves all undated events in an event list to the end'''
+def filter_undated(events):
+	'''Separates undated events from dated events'''
 	undated = filter(lambda e: e['end_at'] is None, events)
 	# Create new list, filtering out undated events
 	filtered = filter(lambda e: e['end_at'] is not None, events)
-	# Append undated events to filtered list
-	finallist = filtered + undated[::-1]
-	return finallist
+	# Return tuple of dated, undated events
+	return (filtered, undated[::-1])
+	
