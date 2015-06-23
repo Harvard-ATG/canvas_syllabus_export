@@ -85,7 +85,7 @@ LTI_OAUTH_CREDENTIALS = {
     "myotherkey": "myothersecret",
 }
 
-ROOT_URLCONF = 'mysite.urls'
+ROOT_URLCONF = 'syllabusexport.urls'
 
 TEMPLATES = [
     {
@@ -103,7 +103,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'mysite.wsgi.application'
+WSGI_APPLICATION = 'syllabusexport.wsgi.application'
 
 
 # Database
