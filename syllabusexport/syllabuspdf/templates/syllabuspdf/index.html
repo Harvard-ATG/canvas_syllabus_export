@@ -1,11 +1,11 @@
 {% load syllabuspdf_extras %}
-<div id="pdflink">
-	<b>Display</b>
+<div id="menu">
+	<legend><b>Display</b></legend>
 	<form action="" method="get">
-    	{{ form }}
+    	{{ form.as_p }}
     	<input type="submit" value="Preview"/>
+    	<input type="button" onClick="window.print()" value="Generate PDF"/>
 	</form>
-	<input type="button" onClick="window.print()" value="Generate PDF"/>
 </div>
 
 {% if syllabus and settings.syllabus %}
@@ -15,7 +15,7 @@
 <style>
 /* Hides "Generate PDF" link when printing page */
 @media print {
-	#pdflink {
+	#menu {
 		display: none;
 	}
 }
@@ -49,8 +49,8 @@
 	border-bottom: 1px solid #bbb;
 }
 
-.settings {
-	display: list-item;
+#pdflink menu {
+	display: block;
 }
 </style>
 
