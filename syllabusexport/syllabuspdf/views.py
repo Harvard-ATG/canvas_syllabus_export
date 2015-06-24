@@ -6,12 +6,11 @@ from forms import SettingsForm
 
 def index(request):
 	# Get course id from session
-	'''try:
+	try:
 		courseid = request.session['LTI_LAUNCH']['custom_canvas_course_id']
 	except:
-		return HttpResponse("Course ID not found")'''
-	# Course ID for testing purposes only
-	courseid = 1876
+		return HttpResponse("Course ID not found")
+
 	syllabus = fetch_syllabus(courseid)
 	(dated, undated) = fetch_allevents(courseid)
 	groups = fetch_assigngroups(courseid)
@@ -22,7 +21,7 @@ def index(request):
 			settings = form.cleaned_data
 	else:
 		form = SettingsForm()
-		settings = {'syllabus' : True, 'dated_events' : True, 'undated_events' : False, 'descriptions': False, 'times': True, 'weights':True, 'hidden_field':"field"}
+		settings = {'syllabus':True,'dated_events':True,'undated_events':False,'descriptions':False,'times':True,'weights':False,'hidden_field':"viewed"}
 
 	events = []
 	if settings['dated_events']:
