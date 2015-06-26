@@ -3,7 +3,7 @@ from canvas_sdk.client import auth, base, request_context
 from canvas_sdk.utils import get_all_list_data
 
 try:
-	from settings.secure import SECURE_SETTINGS
+	from syllabusexport.settings.secure import SECURE_SETTINGS
 except ImportError:
 	from fixtures.dummysecure import SECURE_SETTINGS
 

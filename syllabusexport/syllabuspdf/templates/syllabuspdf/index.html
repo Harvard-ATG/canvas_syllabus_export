@@ -41,17 +41,17 @@
 	{% for event in events %}
 	<tbody>
 	  <tr>
-	    <td>  {{ event.end_at |format_date }} </td>
-	    <td>  <b> {{ event.title }} </b> </td>
+	    <td> <div style="page-break-inside: avoid"> {{ event.end_at |format_date }} </div></td>
+	    <td> <div style="page-break-inside: avoid">  <b> {{ event.title }} </b> </div></td>
 	    {% if settings.times %}
-	    <td align="right">  <i> {% format_time event.start_at event.end_at %} </i> </td> 
+	    <td align="right"> <div style="page-break-inside: avoid"> <i> {% format_time event.start_at event.end_at %} </i> </div></td> 
 	    {% endif %}
 	  </tr>
 	  <tr>
-	  	<td>  </td>
+	  	<td> <div style="page-break-inside: avoid">  </div></td>
 	  	{% if settings.descriptions %}
 	  	{% autoescape off %}
-	  	<td colspan="2">  {{ event.description|escape_None }} </td>
+	  	<td colspan="2"> <div style="page-break-inside: avoid">  {{ event.description|escape_None }} </div></td>
 	  	{% endautoescape %}
 	  	{% endif %}
 	  </tr>
@@ -73,8 +73,8 @@
     	{% for group in groups %}
     	{% if group.group_weight != 0 %}
         <tr>
-          <td>{{ group.name }}</td>
-          <td> {{ group.group_weight }}% </td>
+          <td> <div style="page-break-inside: avoid">{{ group.name }}</div></td>
+          <td> <div style="page-break-inside: avoid">{{ group.group_weight }}% </div></td>
         </tr>
         {% endif %}
         {% endfor %}
@@ -85,7 +85,7 @@
 <style>
 /* Hides "Generate PDF" link when printing page */
 @media print {
-    img { 
+    img, tr { 
     	page-break-inside: avoid; 
     }
 	#menu {
@@ -101,6 +101,7 @@
 #events {
 	width: 100%;
 	table-layout: fixed;
+	display:block;
 }
 
 #events th {
@@ -112,6 +113,7 @@
 #weights {
 	width: 50%;
 	table-layout: fixed;
+	display:block;
 }
 
 #weights th {
