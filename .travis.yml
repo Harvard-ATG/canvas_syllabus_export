@@ -8,6 +8,5 @@ before_install:
 install:
   - "pip install -r test.txt"
 script:
-  - cd
-  - cd syllabusexport
+  - cd ..
   - python manage.py test
