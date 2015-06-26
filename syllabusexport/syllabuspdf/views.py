@@ -11,7 +11,7 @@ def index(request):
 	except:
 		return HttpResponse("Course ID not found")'''
 
-	courseid = 2502
+	courseid = 1876
 
 	syllabus = fetch_syllabus(courseid)
 	(dated, undated) = fetch_allevents(courseid)

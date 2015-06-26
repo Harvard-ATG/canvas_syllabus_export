@@ -73,8 +73,8 @@
     	{% for group in groups %}
     	{% if group.group_weight != 0 %}
         <tr>
-          <td> { group.name } </td>
-          <td> { group.group_weight }}% </td>
+          <td> {{ group.name }} </td>
+          <td> {{ group.group_weight }}% </td>
         </tr>
         {% endif %}
         {% endfor %}
@@ -90,7 +90,8 @@
 	}
 
 	img, tr { 
-    	page-break-inside: avoid; 
+    	page-break-inside: avoid;
+
     }
 }
 
@@ -102,7 +103,6 @@
 #events {
 	width: 100%;
 	table-layout: fixed;
-	display:block;
 }
 
 #events th {
@@ -114,7 +114,6 @@
 #weights {
 	width: 50%;
 	table-layout: fixed;
-	display:block;
 }
 
 #weights th {
@@ -123,3 +122,4 @@
 	color: #fff;
 }
 </style>
+
