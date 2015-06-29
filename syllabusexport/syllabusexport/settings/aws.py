@@ -137,3 +137,5 @@ USE_TZ = True
 STATIC_ROOT = '/home/ubuntu/static'
 STATIC_URL = '/static/'
 STATICFILES_DIRS = ('/home/ubuntu/canvas-syllabus-export/syllabusexport/syllabuspdf/static', )
+
+
