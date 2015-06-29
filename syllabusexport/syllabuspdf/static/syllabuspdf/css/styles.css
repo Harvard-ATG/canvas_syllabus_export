@@ -23,6 +23,7 @@
 #events {
 	width: 100%;
 	table-layout: fixed;
+	border-spacing: 0px;
 }
 
 #events th {
@@ -34,6 +35,7 @@
 #weights {
 	width: 50%;
 	table-layout: fixed;
+	border-spacing: 0px;
 }
 
 #weights th {
