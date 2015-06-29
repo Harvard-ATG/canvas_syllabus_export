@@ -36,7 +36,7 @@ def format_date(str):
 	return date
 
 @register.simple_tag
-def format_time(startat, endat):
+def format_time(startat, endat, type):
 	'''Formats time for events, handling assignment events and calendar events separately'''
 	# Check for None
 	if (startat is None) or (endat is None):
@@ -46,8 +46,7 @@ def format_time(startat, endat):
 	cleanedstart = sub("[^0-9]", "", startat[0:20])
 	cleanedend = sub("[^0-9]", "", endat[0:20])
 
-	# If start_at and end_at are the same, the event is an assignment
-	if startat == endat:
+	if type == 'assignment':
 		tformatted = convert_tz(datetime.strptime(cleanedstart, "%Y%m%d%H%M%S"))
 		time = tformatted.strftime("%I:%M%p")
 		return "due by " + time
@@ -58,7 +57,10 @@ def format_time(startat, endat):
 		eformatted = convert_tz(datetime.strptime(cleanedend, "%Y%m%d%H%M%S"))
 		start = sformatted.strftime("%I:%M%p")
 		end = eformatted.strftime("%I:%M%p")
-		return start + " to " + end
+		if start != end:
+			return start + " to " + end
+		else:
+			return start
 
 @register.filter
 def escape_None(str):
