@@ -14,11 +14,12 @@ class SyllabusPDF_ExtrasTestCase(TestCase):
 		self.assertEqual(format_date("2015-03-10T22:57:44Z"), "Tue Mar 10, 2015")
 
 	def test_format_time(self):
-		self.assertEqual(format_time(None, ""), "")
-		self.assertEqual(format_time("", None), "")
-		self.assertEqual(format_time(None, None), "")
-		self.assertEqual(format_time("2015-03-10T22:57:44Z", "2015-03-10T22:57:44Z"), "due by 06:57PM")
-		self.assertEqual(format_time("2015-03-10T21:57:44Z", "2015-03-10T22:57:44Z"), "05:57PM to 06:57PM")
+		self.assertEqual(format_time(None, "",'assignment'), "")
+		self.assertEqual(format_time("", None, 'calendar'), "")
+		self.assertEqual(format_time(None, None, 'assignment'), "")
+		self.assertEqual(format_time("2015-03-10T22:57:44Z", "2015-03-10T22:57:44Z", 'assignment'), "due by 06:57PM")
+		self.assertEqual(format_time("2015-03-10T22:57:44Z", "2015-03-10T22:57:44Z", 'calendar'), "06:57PM")
+		self.assertEqual(format_time("2015-03-10T21:57:44Z", "2015-03-10T22:57:44Z", 'calendar'), "05:57PM to 06:57PM")
 
 	def test_escape_None(self):
 		self.assertEqual(escape_None(None), "")
