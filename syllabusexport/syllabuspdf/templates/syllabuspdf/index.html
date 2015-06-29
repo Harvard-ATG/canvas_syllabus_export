@@ -2,7 +2,7 @@
 <div id="menu">
 	<legend><b>Display:</b></legend>
 	<form action="" method="get">
-		<table style="width: 100%">
+		<table>
 		<tr>
 		 	<td>{{ form.syllabus }} {{ form.syllabus.label_tag }}</td>
 		 	<td></td>
@@ -33,9 +33,7 @@
 	<thead>
 	  <tr>
 	    <th scope="col" style="width: 20%;">Date</th>
-	    <th scope="col" style="width: 80%;" colspan="2">
-	    Details
-	    </th>
+	    <th scope="col" style="width: 80%;" colspan="2">Details</th>
 	  </tr>
 	</thead>
 	{% for event in events %}
@@ -83,12 +81,13 @@
 {% endif %}
 
 <style>
-/* Hides "Generate PDF" link when printing page */
+/* Hides menu for toggling options when printing page */
 @media print {
 	#menu {
 		display: none;
 	}
 
+	/* Works for Firefox but not for Chrome or Safari. Might be a Webkit issue. */
 	img, tr { 
     	page-break-inside: avoid;
 
