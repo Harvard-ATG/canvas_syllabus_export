@@ -134,6 +134,6 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.8/howto/static-files/
-
+STATIC_ROOT = '/home/ubuntu/static'
 STATIC_URL = '/static/'
-STATICFILES_DIRS = (os.path.join(BASE_DIR, 'syllabusexport/static'), )
+STATICFILES_DIRS = ('/home/ubuntu/canvas-syllabus-export/syllabusexport/syllabuspdf/static', )
