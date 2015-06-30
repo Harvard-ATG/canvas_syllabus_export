@@ -8,5 +8,5 @@ before_install:
 install:
   - "pip install -r test.txt"
 script:
-  - cd ..
+  - cd ../..
   - python manage.py test
