@@ -11,6 +11,6 @@ import os
 
 from django.core.wsgi import get_wsgi_application
 
-os.environ.setdefault("DJANGO_SETTINGS_MODULE", "syllabusexport.settings.aws")
+os.environ.setdefault("DJANGO_SETTINGS_MODULE", "canvas_syllabus_export.settings.aws")
 
 application = get_wsgi_application()

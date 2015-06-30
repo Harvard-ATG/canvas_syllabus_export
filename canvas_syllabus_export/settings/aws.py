@@ -86,7 +86,7 @@ LTI_OAUTH_CREDENTIALS = {
     "myotherkey": "myothersecret",
 }
 
-ROOT_URLCONF = 'syllabusexport.urls'
+ROOT_URLCONF = 'canvas_syllabus_export.urls'
 
 TEMPLATES = [
     {
@@ -104,7 +104,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'syllabusexport.wsgi.application'
+WSGI_APPLICATION = 'canvas_syllabus_export.wsgi.application'
 
 
 # Database
@@ -136,6 +136,6 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.8/howto/static-files/
 STATIC_ROOT = '/home/ubuntu/static'
 STATIC_URL = '/static/'
-STATICFILES_DIRS = ('/home/ubuntu/canvas-syllabus-export/syllabusexport/syllabuspdf/static', )
+STATICFILES_DIRS = ('/home/ubuntu/canvas-syllabus-export/canvas_syllabus_export/syllabuspdf/static', )
 
 
