@@ -4,7 +4,7 @@ python:
 env:
   - DJANGO=1.8.2
 before_install:
-  - cd canvas_syllabus_export/canvas_syllabus_export/requirements
+  - cd canvas_syllabus_export/requirements
 install:
   - "pip install -r test.txt"
 script:
