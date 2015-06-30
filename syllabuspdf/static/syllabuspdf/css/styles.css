@@ -4,8 +4,8 @@
 		display: none;
 	}
 
-	/* Works for Firefox but not for Chrome or Safari. Might be a Webkit issue. */
-	img, tr { 
+	/* Works for Firefox but not for Chrome or Safari. Might be another Webkit issue. */
+	img, tr, p { 
     	page-break-inside: avoid;
 
     }
@@ -43,4 +43,3 @@
 	background-color: #444;
 	color: #fff;
 }
-</style>

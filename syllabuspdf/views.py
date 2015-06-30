@@ -11,6 +11,7 @@ def index(request):
 		courseid = request.session['LTI_LAUNCH']['custom_canvas_course_id']
 	except:
 		raise Http404("Course ID not found")
+	courseid = 1876
 
 	# Get content via API calls
 	syllabus = fetch_syllabus(courseid)
