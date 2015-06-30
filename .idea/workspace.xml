@@ -1,23 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="d1fe590e-7e4a-4960-a179-f0cc589cb185" name="Default" comment="">
-      <change type="MOVED" beforePath="$PROJECT_DIR$/syllabusexport/__init__.py" afterPath="$PROJECT_DIR$/canvas_syllabus_export/settings/__init__.py" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/syllabusexport/db.sqlite3" afterPath="$PROJECT_DIR$/canvas_syllabus_export/db.sqlite3" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/syllabusexport/requirements/aws.txt" afterPath="$PROJECT_DIR$/canvas_syllabus_export/requirements/aws.txt" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/syllabusexport/requirements/local.txt" afterPath="$PROJECT_DIR$/canvas_syllabus_export/requirements/local.txt" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/syllabusexport/requirements/test.txt" afterPath="$PROJECT_DIR$/canvas_syllabus_export/requirements/test.txt" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/syllabusexport/settings/__init__.py" afterPath="$PROJECT_DIR$/canvas_syllabus_export/__init__.py" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/syllabusexport/settings/aws.py" afterPath="$PROJECT_DIR$/canvas_syllabus_export/settings/aws.py" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/syllabusexport/settings/local.py" afterPath="$PROJECT_DIR$/canvas_syllabus_export/settings/local.py" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/syllabusexport/settings/test.py" afterPath="$PROJECT_DIR$/canvas_syllabus_export/settings/test.py" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/syllabusexport/urls.py" afterPath="$PROJECT_DIR$/canvas_syllabus_export/urls.py" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/syllabusexport/wsgi.py" afterPath="$PROJECT_DIR$/canvas_syllabus_export/wsgi.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.travis.yml" afterPath="$PROJECT_DIR$/.travis.yml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/syllabuspdf/apirequest.py" afterPath="$PROJECT_DIR$/syllabuspdf/apirequest.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/manage.py" afterPath="$PROJECT_DIR$/manage.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-    </list>
+    <list default="true" id="d1fe590e-7e4a-4960-a179-f0cc589cb185" name="Default" comment="" />
     <ignored path="canvas-syllabus-export.iws" />
     <ignored path=".idea/workspace.xml" />
     <ignored path=".idea/dataSources.local.xml" />
@@ -45,8 +29,8 @@
       <file leaf-file-name=".travis.yml" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/.travis.yml">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.144">
-              <caret line="6" column="33" selection-start-line="6" selection-start-column="33" selection-end-line="6" selection-end-column="33" />
+            <state vertical-scroll-proportion="0.288">
+              <caret line="12" column="0" selection-start-line="12" selection-start-column="0" selection-end-line="12" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -439,8 +423,8 @@
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/.travis.yml">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.144">
-          <caret line="6" column="33" selection-start-line="6" selection-start-column="33" selection-end-line="6" selection-end-column="33" />
+        <state vertical-scroll-proportion="0.288">
+          <caret line="12" column="0" selection-start-line="12" selection-start-column="0" selection-end-line="12" selection-end-column="0" />
           <folding />
         </state>
       </provider>
