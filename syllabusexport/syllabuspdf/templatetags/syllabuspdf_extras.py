@@ -27,11 +27,13 @@ def format_date(str):
 	# Clean string by stripping all non numeric characters
 	cleaned = sub("[^0-9]", "", str)
 
-	# Store formatted date as datetimeobject and convert timezone
-	dformatted = convert_tz(datetime.strptime(cleaned, "%Y%m%d%H%M%S"))
-
-	# Date string in format for display on webpage
-	date = dformatted.strftime('%a %b %d, %Y')
+	try:
+		# Store formatted date as datetimeobject and convert timezone
+		dformatted = convert_tz(datetime.strptime(cleaned, "%Y%m%d%H%M%S"))
+		# Date string in format for display on webpage
+		date = dformatted.strftime('%a %b %d, %Y')
+	except ValueError:
+		date = str
 
 	return date
 
@@ -47,16 +49,23 @@ def format_time(startat, endat, type):
 	cleanedend = sub("[^0-9]", "", endat[0:20])
 
 	if type == 'assignment':
-		tformatted = convert_tz(datetime.strptime(cleanedstart, "%Y%m%d%H%M%S"))
-		time = tformatted.strftime("%I:%M%p")
+		try:
+			tformatted = convert_tz(datetime.strptime(cleanedstart, "%Y%m%d%H%M%S"))
+			time = tformatted.strftime("%I:%M%p")
+		except ValueError:
+			time = startat
 		return "due by " + time
 
 	# Else calendar event
 	else:
-		sformatted = convert_tz(datetime.strptime(cleanedstart, "%Y%m%d%H%M%S"))
-		eformatted = convert_tz(datetime.strptime(cleanedend, "%Y%m%d%H%M%S"))
-		start = sformatted.strftime("%I:%M%p")
-		end = eformatted.strftime("%I:%M%p")
+		try:
+			sformatted = convert_tz(datetime.strptime(cleanedstart, "%Y%m%d%H%M%S"))
+			eformatted = convert_tz(datetime.strptime(cleanedend, "%Y%m%d%H%M%S"))
+			start = sformatted.strftime("%I:%M%p")
+			end = eformatted.strftime("%I:%M%p")
+		except ValueError:
+			start = startat
+			end = endat
 		if start != end:
 			return start + " to " + end
 		else:

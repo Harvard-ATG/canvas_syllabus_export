@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 from apirequest import fetch_syllabus, fetch_allevents, fetch_assigngroups
+from django.http import Http404
 
 from forms import SettingsForm
 
@@ -9,7 +10,7 @@ def index(request):
 	try:
 		courseid = request.session['LTI_LAUNCH']['custom_canvas_course_id']
 	except:
-		return HttpResponse("Course ID not found")
+		raise Http404("Course ID not found")
 
 	# Get content via API calls
 	syllabus = fetch_syllabus(courseid)
