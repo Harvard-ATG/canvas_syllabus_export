@@ -1,0 +1,46 @@
+/* Hides menu for toggling options when printing page */
+@media print {
+	#menu {
+		display: none;
+	}
+
+	/* Works for Firefox but not for Chrome or Safari. Might be a Webkit issue. */
+	img, tr { 
+    	page-break-inside: avoid;
+
+    }
+}
+
+#menu tr td:empty {
+    width: 50px;
+}
+
+/* Set all fonts to serif for easier readibility once printed */
+* {
+	font-family: serif;
+}
+
+#events {
+	width: 100%;
+	table-layout: fixed;
+	border-spacing: 0px !important;
+}
+
+#events th {
+	text-align: left;
+	background-color: #444;
+	color: #fff;
+}
+
+#weights {
+	width: 50%;
+	table-layout: fixed;
+	border-spacing: 0px;
+}
+
+#weights th {
+	text-align: left;
+	background-color: #444;
+	color: #fff;
+}
+</style>

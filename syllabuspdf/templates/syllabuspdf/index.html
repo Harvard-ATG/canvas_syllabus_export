@@ -1,0 +1,89 @@
+{% load syllabuspdf_extras %}
+{% load staticfiles %}
+
+<link rel="stylesheet" type="text/css" href="{% static 'syllabuspdf/css/styles.css' %}" />
+<div id="menu">
+	<legend><b>Display:</b></legend>
+	<form action="" method="get">
+		<table>
+		<tr>
+		 	<td>{{ form.syllabus }} {{ form.syllabus.label_tag }}</td>
+		 	<td></td>
+		 	<td><b>Event Types</b> {{ form.dated_events }} {{ form.dated_events.label_tag }}
+		    {{ form.undated_events }} {{ form.undated_events.label_tag }}</td>
+		    <td></td>
+		 	<td><b>Event Properties</b> {{ form.descriptions }} {{ form.descriptions.label_tag }} 
+		    {{ form.times }} {{ form.times.label_tag }}</td>
+		    <td></td>
+			<td>{{ form.weights }} {{ form.weights.label_tag }}</td>
+		</tr>
+		</table>
+    	<input id="id_hidden_field" name="hidden_field" type="hidden" value= "{{ form.hidden_field.value }}" />
+    	<input type="submit" value="Preview"/>
+    	<input type="button" onClick="window.print()" value="Generate PDF"/>
+	</form>
+	<b> Preview: </b>
+</div>
+
+{% if syllabus and settings.syllabus %}
+	{% autoescape off %} {{ syllabus }} {% endautoescape %}
+{% endif %}
+
+{% if settings.dated_events or settings.undated_events %}
+	<table id="events" cellpadding="2">
+	<caption style="text-align:left"> <b> Course Schedule </b> </caption>
+	<thead>
+	  <tr>
+	    <th scope="col" style="width: 20%;">Date</th>
+	    <th scope="col" style="width: 80%;" colspan="2">Details</th>
+	  </tr>
+	</thead>
+	{% for event in events %}
+	<tbody>
+	  <tr>
+	    <td> {{ event.end_at |format_date }} </td>
+	    <td>  <b> {{ event.title }} </b> </td>
+	    {% if settings.times %}
+	    <td align="right"> <i>
+	    	{% if 'assignment' in event %}
+	    		{% format_time event.start_at event.end_at 'assignment' %}
+	    	{% else %}
+	    		{% format_time event.start_at event.end_at 'calendar' %}
+	    	{% endif %}
+	    </i></td> 
+	    {% endif %}
+	  </tr>
+	  <tr>
+	  	<td> </td>
+	  	{% if settings.descriptions %}
+	  	{% autoescape off %}
+	  	<td colspan="2">  {{ event.description|escape_None }}</td>
+	  	{% endautoescape %}
+	  	{% endif %}
+	  </tr>
+	</tbody>
+	{% endfor %}
+	</table>
+{% endif %}
+
+{% if groups and settings.weights %}
+ <table id="weights" cellpadding="2">
+ 	<caption style="text-align:left"> <b> Assignment Weights </b> </caption>
+    <thead>
+    <tr>
+      <th scope='col' align='left'>Group</th>
+      <th scope='col' align='left'>Weight</th>
+    </tr>
+    </thead>
+    <tbody>
+    	{% for group in groups %}
+    	{% if group.group_weight != 0 %}
+        <tr>
+          <td> {{ group.name }} </td>
+          <td> {{ group.group_weight }}% </td>
+        </tr>
+        {% endif %}
+        {% endfor %}
+    </tbody>
+  </table>
+{% endif %}
