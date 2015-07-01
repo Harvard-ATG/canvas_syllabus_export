@@ -11,6 +11,11 @@
     }
 }
 
+.avoid {
+	page-break-inside: avoid !important;
+	display: inline-block;
+}
+
 #menu tr td:empty {
     width: 50px;
 }
