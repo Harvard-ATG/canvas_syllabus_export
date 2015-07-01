@@ -4,6 +4,7 @@ from canvas_sdk.utils import get_all_list_data
 
 try:
 	from canvas_syllabus_export.settings.secure import SECURE_SETTINGS
+# For testing with Travis
 except ImportError:
 	from fixtures.dummysecure import SECURE_SETTINGS
 

@@ -16,7 +16,6 @@ Including another URLconf
 from django.conf.urls import include, url
 from django.contrib import admin
 import django_app_lti.urls
-from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 
 urlpatterns = [
 	# Include the lti app's urls
@@ -24,6 +23,3 @@ urlpatterns = [
 	url(r'syllabuspdf/', include('syllabuspdf.urls', namespace="syllabuspdf")),
     url(r'^admin/', include(admin.site.urls)),
 ]
-
-# Development purposes only. Remove in production.
-urlpatterns += staticfiles_urlpatterns()
