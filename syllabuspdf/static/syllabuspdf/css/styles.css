@@ -4,16 +4,10 @@
 		display: none;
 	}
 
-	/* Works for Firefox but not for Chrome or Safari. Might be another Webkit issue. */
 	img, tr, p { 
     	page-break-inside: avoid;
 
     }
-}
-
-.avoid {
-	page-break-inside: avoid !important;
-	display: inline-block;
 }
 
 #menu tr td:empty {
@@ -25,26 +19,49 @@
 	font-family: serif;
 }
 
-#events {
+.table {
+	display: table;
 	width: 100%;
-	table-layout: fixed;
 	border-spacing: 0px !important;
 }
 
-#events th {
+.head {
+	display: table-header-group;
 	text-align: left;
 	background-color: #444;
 	color: #fff;
+}
+
+.row {
+	display: table-row;
+	text-align: left;
+}
+
+.cell {
+	display:table-cell;
+}
+
+.head, .row, .cell{
+	page-break-inside: avoid !important;
 }
 
 #weights {
 	width: 50%;
-	table-layout: fixed;
-	border-spacing: 0px;
 }
 
-#weights th {
-	text-align: left;
-	background-color: #444;
-	color: #fff;
+.event{
+    display: table;
+    width: 100%;
+    margin: 0;
 }
+
+.event_title{
+	text-align: left;
+    display: table-cell;
+}
+.event_time{
+	text-align: right;
+    display: table-cell;
+}
+
+

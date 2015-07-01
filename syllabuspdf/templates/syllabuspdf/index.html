@@ -3,6 +3,7 @@
 
 <link rel="stylesheet" type="text/css" href="{% static 'syllabuspdf/css/styles.css' %}" />
 
+<!-- Menu for toggling options and generating PDF -->
 <div id="menu">
 	<legend><b>Display:</b></legend>
 	<form action="" method="get">
@@ -26,70 +27,73 @@
 	<b> Preview: </b>
 </div>
 
+<!-- Syllabus body -->
+<!-- Divs used to fix Webkit bug of splitting table rows-->
 {% if syllabus and settings.syllabus %}
 	{% autoescape off %} {{ syllabus }} {% endautoescape %}
 {% endif %}
 
 {% if settings.dated_events or settings.undated_events %}
-	<table id="events" cellpadding="2" >
-	<caption style="text-align:left"> <b> Course Schedule </b> </caption>
-	<thead>
-	  <tr>
-	    <th scope="col" style="width: 20%;">Date</th>
-	    <th scope="col" style="width: 80%;" colspan="2">Details</th>
-	  </tr>
-	</thead>
-	{% for event in events %}
-	<tbody>
-	  <tr>
-	  	<div class="avoid">
-	    <td> <div class="avoid"> {{ event.end_at |format_date }} </div></td>
-	    <td> <div class="avoid"> <b> {{ event.title }} </b></div> </td>
-	    {% if settings.times %}
-	    <td align="right"> <div class="avoid"><i>
-	    	{% if 'assignment' in event %}
-	    		{% format_time event.start_at event.end_at 'assignment' %}
-	    	{% else %}
-	    		{% format_time event.start_at event.end_at 'calendar' %}
-	    	{% endif %}
-	    </i></div></td> 
-	    {% endif %}
+<div> <b> Course Schedule </b> </div>
+<div class="table" id="events">
+	<div class="head">
+		<div class="row">
+			<div class="cell" style="width: 20%;">Date</div>
+	    	<div class="cell" style="width: 80%;">Details</div>
 		</div>
-	  </tr>
-	  <tr>
-	  	<div class="avoid">
-	  	<td> <div class="avoid"></div></td>
+	</div>
+	{% if events %}
+	{% for event in events %}
+	<div class="row">
+	    <div class="cell"> {{ event.end_at |format_date }} </div>
+	    <div class="cell">
+	    	<span class="event"> 
+	    		<span class="event_title">
+	    			<b> {{ event.title }} </b>
+	    		</span>
+	    		{% if settings.times %}
+	    		<span class="event_time">
+	     			<i> {% if 'assignment' in event %}
+	    			{% format_time event.start_at event.end_at 'assignment' %}
+	    			{% else %}
+	    			{% format_time event.start_at event.end_at 'calendar' %}
+	    			{% endif %} </i>
+	    		</span>
+	    		{% endif %}
+	    	</span>
+		</div>
+	</div>
+	<div class="row">
+	  	<div class="cell"></div>
 	  	{% if settings.descriptions %}
 	  	{% autoescape off %}
-	  	<td colspan="2"> <div class="avoid"> {{ event.description|escape_None }}</div></td>
+	  	<div class="cell"> {{ event.description|escape_None }}</div>
 	  	{% endautoescape %}
 	  	{% endif %}
-	  	</div>
-	  </tr>
-	</tbody>
+	</div>
 	{% endfor %}
-	</table>
+	{% endif %}
+
+</div>
 {% endif %}
 
+<!-- Assignment Weights Table (divs inserted to work around Webkit bug of splitting table rows) -->
 {% if groups and settings.weights %}
- <table id="weights" cellpadding="2">
- 	<caption style="text-align:left"> <b> Assignment Weights </b> </caption>
-    <thead>
-    <tr>
-      <th scope='col' align='left'>Group</th>
-      <th scope='col' align='left'>Weight</th>
-    </tr>
-    </thead>
-    <tbody>
-    	{% for group in groups %}
-    	{% if group.group_weight != 0 %}
-        <tr>
-          <td> <div class="avoid"> {{ group.name }} </div> </td>
-          <td> <div class="avoid"> {{ group.group_weight }}% </div> </td>
-        </tr>
+<div> <b> Assignment Weights </b> </div>
+<div class="table" id="weights">
+    <div class="head">
+    	<div class="row">
+    		<div class="cell">Group</div>
+        	<div class="cell">Weight</div>
+    	</div>
+    </div>
+{% for group in groups %}
+    {% if group.group_weight != 0 %}
+    <div class="row">
+          <div class="cell"> {{ group.name }} </div>
+          <div class="cell"> {{ group.group_weight }}% </div>
+    </div>
         {% endif %}
-        {% endfor %}
-    </tbody>
+{% endfor %}
 </div>
-  </table>
 {% endif %}
