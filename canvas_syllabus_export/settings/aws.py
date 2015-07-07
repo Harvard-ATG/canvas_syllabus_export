@@ -138,6 +138,18 @@ STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'syllabusexport', 'syllabuspdf', 'static'),
 )
 
+REDIS_HOST = SECURE_SETTINGS.get('redis_host', '127.0.0.1')
+REDIS_PORT = SECURE_SETTINGS.get('redis_port', 6379)
+
+CACHES = {
+    'default': {
+        'BACKEND': 'redis_cache.RedisCache',
+        'LOCATION': "%s:%s" % (REDIS_HOST, REDIS_PORT),
+        'KEY_PREFIX': 'canvas_syllabus_export', # Provide a unique value for shared cache
+        'TIMEOUT': SECURE_SETTINGS.get('cache_timeout_in_secs', 60 * 20),
+    },
+}
+
 # AWS SSL settings
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 SESSION_COOKIE_SECURE = True
