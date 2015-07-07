@@ -35,7 +35,7 @@ INSTALLED_APPS = (
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
-    'django.contrib.sessions',
+    #'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'syllabuspdf',
@@ -137,6 +137,8 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'syllabusexport', 'syllabuspdf', 'static'),
 )
+
+SESSION_ENGINE = 'django.contrib.sessions.backends.cache'
 
 REDIS_HOST = SECURE_SETTINGS.get('redis_host', '127.0.0.1')
 REDIS_PORT = SECURE_SETTINGS.get('redis_port', 6379)
