@@ -82,10 +82,7 @@ LTI_SETUP = {
 }
 
 # Add LTI oauth credentials (for django-auth-lti)
-LTI_OAUTH_CREDENTIALS = {
-    "mykey":"mysecret",
-    "myotherkey": "myothersecret",
-}
+LTI_OAUTH_CREDENTIALS = SECURE_SETTINGS.get('lti_oauth_credentials', {})
 
 ROOT_URLCONF = 'canvas_syllabus_export.urls'
 
