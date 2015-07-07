@@ -8,10 +8,9 @@ logger = logging.getLogger(__name__)
 
 try:
 	from canvas_syllabus_export.settings.secure import SECURE_SETTINGS
-	logger.error("Missing SECURE_SETTINGS file")
 # For testing with Travis
 except ImportError:
-	logger.debug("Using dummy SECURE_SETTINGS")
+	logger.debug("Missing SECURE_SETTINGS file. Using dummy SECURE_SETTINGS instead")
 	from fixtures.dummysecure import SECURE_SETTINGS
 
 oauthtoken = SECURE_SETTINGS.get('oauthtoken', None)
