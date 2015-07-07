@@ -138,4 +138,8 @@ STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'syllabusexport', 'syllabuspdf', 'static'),
 )
 
+# AWS SSL settings
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+SESSION_COOKIE_SECURE = True
+SESSION_EXPIRE_AT_BROWSER_CLOSE = True
 
