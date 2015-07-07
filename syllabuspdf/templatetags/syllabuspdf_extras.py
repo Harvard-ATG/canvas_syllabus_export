@@ -4,6 +4,10 @@ from django import template
 from django.template.defaultfilters import stringfilter
 from re import sub
 
+import logging
+
+logger = logging.getLogger(__name__)
+
 register = template.Library()
 
 def convert_tz(datetimeobj):
@@ -33,6 +37,7 @@ def format_date(str):
 		# Date string in format for display on webpage
 		date = dformatted.strftime('%a %b %d, %Y')
 	except ValueError:
+		logger.warning("Failed attempt to format event date")
 		date = str
 
 	return date
@@ -64,6 +69,7 @@ def format_time(startat, endat, type):
 			start = sformatted.strftime("%I:%M%p")
 			end = eformatted.strftime("%I:%M%p")
 		except ValueError:
+			logger.warning("Failed attempt to format event times")
 			start = startat
 			end = endat
 		if start != end:
