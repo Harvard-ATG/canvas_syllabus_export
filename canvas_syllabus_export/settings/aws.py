@@ -135,7 +135,7 @@ USE_TZ = True
 STATIC_ROOT = os.path.normpath(os.path.join(BASE_DIR, 'http_static'))
 STATIC_URL = '/static/'
 STATICFILES_DIRS = (
-    os.path.join(BASE_DIR, 'syllabusexport', 'syllabuspdf', 'static'),
+    os.path.join(BASE_DIR, 'syllabuspdf', 'static'),
 )
 
 SESSION_ENGINE = 'django.contrib.sessions.backends.cache'
