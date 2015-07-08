@@ -20,8 +20,8 @@ baseurl = "https://canvas.harvard.edu/api"
 def fetch_syllabus(id):
 	'''Fetches syllabus for course with given id from API. Returns syllabus as HTML string'''
 	if oauthtoken is None:
-		raise Exception("Invalid Authorization Token")
-		logger.warning("Missing oauthtoken")
+		logger.warning("Missing oauthtoken. Check that `oauthtoken` is defined in SECURE_SETTINGS file.")
+		raise Exception("Missing Authorization Token")
 
 	# Create request context
 	req_context = request_context.RequestContext(oauthtoken, baseurl)
@@ -37,9 +37,9 @@ def fetch_syllabus(id):
 def fetch_allevents(id):
 	'''Fetches assignments and events for course with given id'''
 	if oauthtoken is None:
-		raise Exception("Invalid Authorization Token")
-		logger.warning("Missing oauthtoken")
-
+		logger.warning("Missing oauthtoken. Check that `oauthtoken` is defined in SECURE_SETTINGS file.")
+		raise Exception("Missing Authorization Token")
+		
 	# Create request context
 	req_context = request_context.RequestContext(oauthtoken, baseurl)
 
@@ -62,8 +62,8 @@ def fetch_allevents(id):
 def fetch_assigngroups(id):
 	'''Fetches assignment groups for course with given id'''
 	if oauthtoken is None:
-		raise Exception("Invalid Authorization Token")
-		logger.warning("Missing oauthtoken")
+		logger.warning("Missing oauthtoken. Check that `oauthtoken` is defined in SECURE_SETTINGS file.")
+		raise Exception("Missing Authorization Token")
 
 	# Create request context
 	req_context = request_context.RequestContext(oauthtoken, baseurl)
