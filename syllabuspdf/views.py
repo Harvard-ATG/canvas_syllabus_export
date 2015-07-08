@@ -14,8 +14,8 @@ def index(request):
 	try:
 		courseid = request.session['LTI_LAUNCH']['custom_canvas_course_id']
 	except:
-		raise Http404("Course ID not found")
 		logger.error("Missing custom_canvas_course_id in LTI launch")
+		raise Http404("Course ID not found")
 
 	# Get content via API calls
 	syllabus = fetch_syllabus(courseid)
