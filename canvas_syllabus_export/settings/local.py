@@ -61,6 +61,9 @@ AUTHENTICATION_BACKENDS = (
     'django_auth_lti.backends.LTIAuthBackend',
 )
 
+# Oauth token for making calls to Canvas API
+OAUTHTOKEN = SECURE_SETTINGS.get("oauthtoken", None)
+
 # Add LTI configuration settings (for django-app-lti)
 LTI_SETUP = {
     "TOOL_TITLE": "Syllabus Export",
