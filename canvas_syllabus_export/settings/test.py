@@ -15,6 +15,8 @@ import os
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
+# Base URL for Canvas instance
+BASE_URL = "https://canvas.harvard.edu/api"
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.8/howto/deployment/checklist/
@@ -23,7 +25,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__fil
 SECRET_KEY = 'dummykey'
 
 # Oauth token for making calls to Canvas API
-OAUTHTOKEN = 'dummyoauthtoken'
+OAUTH_TOKEN = 'dummyoauthtoken'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True

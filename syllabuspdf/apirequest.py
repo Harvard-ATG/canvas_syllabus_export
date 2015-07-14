@@ -7,9 +7,11 @@ import logging
 
 logger = logging.getLogger(__name__)
 
-oauthtoken = settings.OAUTHTOKEN
+# Get oauth token
+oauthtoken = settings.OAUTH_TOKEN
 
-baseurl = "https://canvas.harvard.edu/api"
+# Get base URL for canvas instance
+baseurl = settings.BASE_URL
 
 def raise_exception():
 	logger.warning("Missing oauthtoken. Check that `oauthtoken` is defined in SECURE_SETTINGS file.")
