@@ -2,20 +2,29 @@
 from canvas_sdk.client import auth, base, request_context
 from canvas_sdk.utils import get_all_list_data
 
+import logging
+
+logger = logging.getLogger(__name__)
+
 try:
 	from canvas_syllabus_export.settings.secure import SECURE_SETTINGS
 # For testing with Travis
 except ImportError:
+	logger.debug("Missing SECURE_SETTINGS file. Using dummy SECURE_SETTINGS instead")
 	from fixtures.dummysecure import SECURE_SETTINGS
 
 oauthtoken = SECURE_SETTINGS.get('oauthtoken', None)
 
 baseurl = "https://canvas.harvard.edu/api"
 
+def raise_exception():
+	logger.warning("Missing oauthtoken. Check that `oauthtoken` is defined in SECURE_SETTINGS file.")
+	raise Exception("Missing Authorization Token")
+
 def fetch_syllabus(id):
 	'''Fetches syllabus for course with given id from API. Returns syllabus as HTML string'''
 	if oauthtoken is None:
-		raise Exception("Invalid Authorization Token")
+		raise_exception()
 
 	# Create request context
 	req_context = request_context.RequestContext(oauthtoken, baseurl)
@@ -31,8 +40,8 @@ def fetch_syllabus(id):
 def fetch_allevents(id):
 	'''Fetches assignments and events for course with given id'''
 	if oauthtoken is None:
-		raise Exception("Invalid Authorization Token")
-
+		raise_exception()
+		
 	# Create request context
 	req_context = request_context.RequestContext(oauthtoken, baseurl)
 
@@ -55,7 +64,7 @@ def fetch_allevents(id):
 def fetch_assigngroups(id):
 	'''Fetches assignment groups for course with given id'''
 	if oauthtoken is None:
-		raise Exception("Invalid Authorization Token")
+		raise_exception()
 
 	# Create request context
 	req_context = request_context.RequestContext(oauthtoken, baseurl)

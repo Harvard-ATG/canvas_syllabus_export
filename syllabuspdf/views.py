@@ -5,11 +5,16 @@ from django.http import Http404
 
 from forms import SettingsForm
 
+import logging
+
+logger = logging.getLogger(__name__)
+
 def index(request):
 	# Get course id from session
 	try:
 		courseid = request.session['LTI_LAUNCH']['custom_canvas_course_id']
 	except:
+		logger.error("Missing custom_canvas_course_id in LTI launch")
 		raise Http404("Course ID not found")
 
 	# Get content via API calls
