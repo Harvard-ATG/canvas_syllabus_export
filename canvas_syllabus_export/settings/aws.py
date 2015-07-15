@@ -17,7 +17,7 @@ from .secure import SECURE_SETTINGS
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 # Base URL for Canvas instance
-BASE_URL = "https://canvas.harvard.edu/api"
+BASE_URL = SECURE_SETTINGS.get('base_url',"https://canvas.harvard.edu/api")
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.8/howto/deployment/checklist/
