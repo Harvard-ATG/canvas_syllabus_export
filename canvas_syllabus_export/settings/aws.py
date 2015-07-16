@@ -16,6 +16,8 @@ from .secure import SECURE_SETTINGS
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
+# Base URL for Canvas instance
+BASE_URL = SECURE_SETTINGS.get('base_url',"https://canvas.harvard.edu/api")
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.8/howto/deployment/checklist/
@@ -60,6 +62,9 @@ AUTHENTICATION_BACKENDS = (
     'django.contrib.auth.backends.ModelBackend',
     'django_auth_lti.backends.LTIAuthBackend',
 )
+
+# Oauth token for making calls to Canvas API
+OAUTH_TOKEN = SECURE_SETTINGS.get("oauthtoken", None)
 
 # Add LTI configuration settings (for django-app-lti)
 LTI_SETUP = {
@@ -110,9 +115,13 @@ WSGI_APPLICATION = 'canvas_syllabus_export.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-    }
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': SECURE_SETTINGS.get('db_default_name', 'canvas_syllabus_export'),
+        'USER': SECURE_SETTINGS.get('db_default_user', 'postgres'),
+        'PASSWORD': SECURE_SETTINGS.get('db_default_password'),
+        'HOST': SECURE_SETTINGS.get('db_default_host', '127.0.0.1'),
+        'PORT': SECURE_SETTINGS.get('db_default_port', 5432),
+    } 
 }
 
 

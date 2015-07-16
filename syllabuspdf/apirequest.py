@@ -1,21 +1,17 @@
 # Makes Canvas API requests using the Canvas Python SDK
 from canvas_sdk.client import auth, base, request_context
 from canvas_sdk.utils import get_all_list_data
+from django.conf import settings
 
 import logging
 
 logger = logging.getLogger(__name__)
 
-try:
-	from canvas_syllabus_export.settings.secure import SECURE_SETTINGS
-# For testing with Travis
-except ImportError:
-	logger.debug("Missing SECURE_SETTINGS file. Using dummy SECURE_SETTINGS instead")
-	from fixtures.dummysecure import SECURE_SETTINGS
+# Get oauth token
+oauthtoken = settings.OAUTH_TOKEN
 
-oauthtoken = SECURE_SETTINGS.get('oauthtoken', None)
-
-baseurl = "https://canvas.harvard.edu/api"
+# Get base URL for canvas instance
+baseurl = settings.BASE_URL
 
 def raise_exception():
 	logger.warning("Missing oauthtoken. Check that `oauthtoken` is defined in SECURE_SETTINGS file.")
