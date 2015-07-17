@@ -17,7 +17,7 @@ from .secure import SECURE_SETTINGS
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 # Base URL for Canvas instance
-BASE_URL = SECURE_SETTINGS.get('base_url',"https://canvas.harvard.edu/api")
+BASE_URL = SECURE_SETTINGS.get('base_url', "https://canvas.harvard.edu/api")
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.8/howto/deployment/checklist/
@@ -143,9 +143,6 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.8/howto/static-files/
 STATIC_ROOT = os.path.normpath(os.path.join(BASE_DIR, 'http_static'))
 STATIC_URL = '/static/'
-STATICFILES_DIRS = (
-    os.path.join(BASE_DIR, 'syllabuspdf', 'static'),
-)
 
 SESSION_ENGINE = 'django.contrib.sessions.backends.cache'
 
@@ -226,4 +223,3 @@ LOGGING = {
         }
     }
 }
-

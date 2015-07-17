@@ -1,7 +1,8 @@
 git+https://github.com/penzance/canvas_python_sdk@master#egg=canvas_python_sdk==0.7.7
-Django == 1.8.2
-python_dateutil == 2.4.2
+Django==1.8.2
+python_dateutil==2.4.2
 redis==2.10.3
 django-redis-cache==1.1.1
 git+https://github.com/Harvard-ATG/django-app-lti@master#egg=django-app-lti==1.0
 git+https://github.com/Harvard-University-iCommons/django-auth-lti@master#egg=django-auth-lti==v1.2.1
+psycopg2==2.6.1
