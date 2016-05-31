@@ -28,11 +28,9 @@ SECRET_KEY = SECURE_SETTINGS.get('secret_key')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = SECURE_SETTINGS.get('enable_debug', False)
 
-ALLOWED_HOSTS = []
-
+ALLOWED_HOSTS = ['.tlt.harvard.edu']
 
 # Application definition
-
 INSTALLED_APPS = (
     'django.contrib.admin',
     'django.contrib.auth',
