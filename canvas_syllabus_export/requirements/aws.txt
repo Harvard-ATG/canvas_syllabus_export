@@ -4,5 +4,6 @@ python_dateutil==2.4.2
 redis==2.10.6
 django-redis-cache==1.1.1
 git+https://github.com/Harvard-ATG/django-app-lti@master#egg=django-app-lti==v1.0.0
-git+https://github.com/Harvard-University-iCommons/django-auth-lti@master#egg=django-auth-lti==v1.2.1
+git+https://github.com/Harvard-University-iCommons/django-auth-lti@v1.2.6#egg=django-auth-lti==v1.2.6
 psycopg2==2.7.7
+django-braces==1.14.0
