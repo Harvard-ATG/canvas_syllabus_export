@@ -27,7 +27,7 @@ BASE_URL = "https://canvas.harvard.edu/api"
 SECRET_KEY = SECURE_SETTINGS.get('secret_key')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = SECURE_SETTINGS.get('enable_debug', False)
+DEBUG = SECURE_SETTINGS.get('enable_debug', True)
 
 ALLOWED_HOSTS = []
 
@@ -143,3 +143,6 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'syllabusexport', 'syllabuspdf', 'static'),
 )
+
+# Google Analytics 
+GA_TRACKING_ID = SECURE_SETTINGS.get('ga_tracking_id', None)

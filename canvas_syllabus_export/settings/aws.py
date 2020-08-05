@@ -221,3 +221,6 @@ LOGGING = {
         }
     }
 }
+
+# Google Analytics 
+GA_TRACKING_ID = SECURE_SETTINGS.get('ga_tracking_id', None)
