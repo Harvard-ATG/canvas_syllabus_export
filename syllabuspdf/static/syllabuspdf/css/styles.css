@@ -14,10 +14,22 @@
 #menu legend {
 	font-weight: bold;
 }
+#menu label {
+	user-select: none;
+}
 #menu {
 	border: 1px solid rgb(181, 181, 181);
 }
-
+.menu-params {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	background-color: #fff;
+	color: #444;
+}
+.menu-btns {
+	margin-top: 8px;
+}
 .btn {
 	background-color:rgb(0, 142, 226);
 	padding: 2px 12px;
