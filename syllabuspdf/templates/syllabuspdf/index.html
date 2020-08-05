@@ -1,31 +1,39 @@
+{% extends "base.html" %}
 {% load syllabuspdf_extras %}
 {% load staticfiles %}
 
+{% block stylesheets %}
 <link rel="stylesheet" type="text/css" href="{% static 'syllabuspdf/css/styles.css' %}" />
+{% endblock %}
 
+{% block content %}
 <!-- Menu for toggling options and generating PDF -->
-<div id="menu">
-	<legend><b>Display:</b></legend>
-	<form action="" method="get">
-		<table>
-		<tr>
-		 	<td>{{ form.syllabus }} {{ form.syllabus.label_tag }}</td>
-		 	<td></td>
-		 	<td><b>Event Types</b> {{ form.dated_events }} {{ form.dated_events.label_tag }}
-		    {{ form.undated_events }} {{ form.undated_events.label_tag }}</td>
-		    <td></td>
-		 	<td><b>Event Properties</b> {{ form.descriptions }} {{ form.descriptions.label_tag }} 
-		    {{ form.times }} {{ form.times.label_tag }}</td>
-		    <td></td>
-			<td>{{ form.weights }} {{ form.weights.label_tag }}</td>
-		</tr>
-		</table>
-    	<input id="id_hidden_field" name="hidden_field" type="hidden" value= "{{ form.hidden_field.value }}" />
-    	<input type="submit" value="Preview"/>
-    	<input type="button" onClick="window.print()" value="Generate PDF"/>
-	</form>
-	<b> Preview: </b>
-</div>
+<header id="syllabus-export">
+	<fieldset id="menu">
+		<legend>Display:</legend>
+		<form action="{% url 'syllabuspdf:index' %}" method="get">
+			<table>
+			<tr>
+				<td>{{ form.syllabus }} {{ form.syllabus.label_tag }}</td>
+				<td></td>
+				<td><b>Event Types</b> {{ form.dated_events }} {{ form.dated_events.label_tag }}
+				{{ form.undated_events }} {{ form.undated_events.label_tag }}</td>
+				<td></td>
+				<td><b>Event Properties</b> {{ form.descriptions }} {{ form.descriptions.label_tag }} 
+				{{ form.times }} {{ form.times.label_tag }}</td>
+				<td></td>
+				<td>{{ form.weights }} {{ form.weights.label_tag }}</td>
+			</tr>
+			</table>
+			<div style="margin-top: 8px;">
+				<input id="id_hidden_field" name="hidden_field" type="hidden" value= "{{ form.hidden_field.value }}" />
+				<input type="submit" class="btn" value="Preview"/>
+				<input type="button" class="btn" onClick="window.print()" value="Generate PDF"/>
+			</div>
+		</form>
+	</fieldset>
+	<h2>Preview:</h2>
+</header>
 
 <!-- Syllabus body -->
 <!-- Divs used to fix Webkit bug of splitting table rows-->
@@ -97,3 +105,4 @@
 {% endfor %}
 </div>
 {% endif %}
+{% endblock %}

@@ -1,17 +1,30 @@
 /* Hides menu for toggling options when printing page */
 @media print {
-	#menu {
-		display: none;
+	header#syllabus-export {
+		display:none;
 	}
-
 	img, tr, p { 
     	page-break-inside: avoid;
 
     }
 }
-
 #menu tr td:empty {
     width: 50px;
+}
+#menu legend {
+	font-weight: bold;
+}
+#menu {
+	border: 1px solid rgb(181, 181, 181);
+}
+
+.btn {
+	background-color:rgb(0, 142, 226);
+	padding: 2px 12px;
+	color: #fff;
+	border: 1px solid rgb(0, 121, 193);
+	border-radius: 3px;
+	font-size: 1.1em;
 }
 
 /* Set all fonts to serif for easier readibility once printed */

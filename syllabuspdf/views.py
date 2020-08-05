@@ -2,6 +2,7 @@ from django.shortcuts import render
 from django.http import HttpResponse
 from apirequest import fetch_syllabus, fetch_allevents, fetch_assigngroups
 from django.http import Http404
+from django.conf import settings
 
 from forms import SettingsForm
 
@@ -26,10 +27,10 @@ def index(request):
 	if 'hidden_field' in request.GET:
 		form = SettingsForm(request.GET)
 		if form.is_valid():
-			settings = form.cleaned_data
+			form_settings = form.cleaned_data
 	else:
 		form = SettingsForm()
-		settings = {
+		form_settings = {
 			'syllabus':True,
 			'dated_events':True,
 			'undated_events':False,
@@ -41,10 +42,17 @@ def index(request):
 
 	# Populate events array based on toggled options
 	events = []
-	if settings['dated_events']:
+	if form_settings['dated_events']:
 		events += dated
-	if settings['undated_events']:
+	if form_settings['undated_events']:
 		events += undated
 
-	context = {'syllabus': syllabus, 'events': events, 'groups': groups, 'form': form, 'settings': settings}
+	context = {
+		'ga_tracking_id': settings.GA_TRACKING_ID,
+		'syllabus': syllabus, 
+		'events': events, 
+		'groups': groups, 
+		'form': form, 
+		'settings': form_settings
+	}
 	return render(request,'syllabuspdf/index.html', context)
