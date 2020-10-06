@@ -1,4 +1,5 @@
 # Makes Canvas API requests using the Canvas Python SDK
+from builtins import str
 from canvas_sdk.client import auth, base, request_context
 from canvas_sdk.utils import get_all_list_data
 from django.conf import settings
@@ -75,13 +76,16 @@ def fetch_assigngroups(id):
 
 def sort_events(events):
 	'''Sorts assignments by time'''
-	return sorted(events, key = lambda a: a['end_at'])
+	undated_events = [e for e in events if e['end_at'] is None]
+	dated_events = [e for e in events if e['end_at'] is not None]
+	sorted_events = undated_events + sorted(dated_events, key = lambda a: a['end_at'])
+	return sorted_events
 
 def filter_undated(events):
 	'''Separates undated events from dated events'''
-	undated = filter(lambda e: e['end_at'] is None, events)
+	undated = [e for e in events if e['end_at'] is None]
 	# Create new list, filtering out undated events
-	filtered = filter(lambda e: e['end_at'] is not None, events)
+	filtered = [e for e in events if e['end_at'] is not None]
 	# Return tuple of dated, undated events
 	return (filtered, undated[::-1])
 	
