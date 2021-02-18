@@ -102,21 +102,18 @@ CACHES = {
 }
 
 # Add LTI configuration settings
-LTI_SETUP = {
-    "TOOL_TITLE": "Syllabus Export",
-    "TOOL_DESCRIPTION": "Exports course syllabus as html, with additional option of generating a PDF",
-    "LAUNCH_URL": "syllabuspdf:process_lti_launch_request",
-    "EXTENSION_PARAMETERS": {
-        "canvas.instructure.com": {
-            "privacy_level": "public",
-            "course_navigation": {
-                "enabled": "true",
-                "default": "enabled",
-                "text": "Syllabus Export",
-                "visibility": "admins"
-            }
-        }
-    }
+LTI_TOOL_CONFIGURATION = {
+    'title': 'Syllabus Export',
+    'description': 'Exports course syllabus as html, with additional option of generating a PDF',
+    'launch_url': 'lti/launch/',
+    'landing_url': '/',
+    'privacy_level': 'Public',
+    'course_navigation': {
+        "default": "enabled",
+        "enabled": "true",
+        "visibility": "admins",
+        "text": "Syllabus Export",
+    },
 }
 
 PYLTI_CONFIG = {
