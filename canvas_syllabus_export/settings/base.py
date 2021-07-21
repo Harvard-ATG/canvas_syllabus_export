@@ -10,6 +10,7 @@ https://docs.djangoproject.com/en/2.2/ref/settings/
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 import os
+import sys
 from .secure import SECURE_SETTINGS
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
@@ -22,6 +23,9 @@ BASE_URL = SECURE_SETTINGS.get('base_url', "https://canvas.harvard.edu/api")
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = SECURE_SETTINGS.get('secret_key')
+
+# SECURITY WARNING: don't run with debug turned on in production!
+DEBUG = SECURE_SETTINGS.get('enable_debug', False)
 
 # Application definition
 INSTALLED_APPS = [
@@ -74,6 +78,20 @@ TEMPLATES = [
 WSGI_APPLICATION = 'canvas_syllabus_export.wsgi.application'
 
 
+# Database
+# https://docs.djangoproject.com/en/2.2/ref/settings/#databases
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': SECURE_SETTINGS.get('db_default_name', 'canvas_syllabus_export'),
+        'USER': SECURE_SETTINGS.get('db_default_user', 'canvas_syllabus_export'),
+        'PASSWORD': SECURE_SETTINGS.get('db_default_password'),
+        'HOST': SECURE_SETTINGS.get('db_default_host', '127.0.0.1'),
+        'PORT': SECURE_SETTINGS.get('db_default_port', 5432),
+    }
+}
+
+
 # Internationalization
 # https://docs.djangoproject.com/en/2.2/topics/i18n/
 
@@ -87,19 +105,14 @@ USE_L10N = True
 
 USE_TZ = True
 
-SESSION_ENGINE = 'django.contrib.sessions.backends.cache'
+# Static files (CSS, JavaScript, Images)
+# https://docs.djangoproject.com/en/2.2/howto/static-files/
+STATIC_ROOT = os.path.normpath(os.path.join(BASE_DIR, 'http_static'))
+STATIC_URL = '/static/'
+STATICFILES_DIRS = (
+    os.path.join(BASE_DIR, 'syllabuspdf', 'static'),
+)
 
-REDIS_HOST = SECURE_SETTINGS.get('redis_host', '127.0.0.1')
-REDIS_PORT = SECURE_SETTINGS.get('redis_port', 6379)
-
-CACHES = {
-    'default': {
-        'BACKEND': 'redis_cache.RedisCache',
-        'LOCATION': "%s:%s" % (REDIS_HOST, REDIS_PORT),
-        'KEY_PREFIX': 'canvas_syllabus_export', # Provide a unique value for shared cache
-        'TIMEOUT': SECURE_SETTINGS.get('cache_timeout_in_secs', 60 * 20),
-    },
-}
 
 # Add LTI configuration settings
 LTI_TOOL_CONFIGURATION = {
@@ -129,3 +142,69 @@ GA_TRACKING_ID = SECURE_SETTINGS.get('ga_tracking_id', None)
 
 
 X_FRAME_OPTIONS = SECURE_SETTINGS.get('X_FRAME_OPTIONS', 'ALLOW-FROM https://canvas.harvard.edu/')
+
+# Logging settings
+_DEFAULT_LOG_LEVEL = SECURE_SETTINGS.get('log_level', 'DEBUG')
+_LOG_ROOT = SECURE_SETTINGS.get('log_root', '')
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'formatters': {
+        'verbose': {
+            'format': '%(levelname)s\t%(asctime)s.%(msecs)03dZ\t%(name)s:%(lineno)s\t%(message)s',
+            'datefmt': '%Y-%m-%dT%H:%M:%S'
+        },
+        'simple': {
+            'format': '%(levelname)s\t%(name)s:%(lineno)s\t%(message)s',
+        },
+    },
+    'handlers': {
+        # By default, log to a file
+        'default': {
+            'class': 'logging.handlers.WatchedFileHandler',
+            'level': _DEFAULT_LOG_LEVEL,
+            'formatter': 'verbose',
+            'filename': os.path.join(_LOG_ROOT, 'django-canvas_syllabus_export.log'),
+        },
+        'console': {
+            'level' : 'DEBUG',
+            'class': 'logging.StreamHandler',
+            'stream': sys.stdout,
+            'formatter': 'simple'
+        },
+    },
+    'loggers': {
+        # Root logger
+        '': {
+            'level': 'WARNING',
+            'handlers': ['console', 'default'],
+        },
+        # Add app or module specific loggers here.
+        'django': {
+            'handlers': ['console', 'default'],
+            'level': 'INFO',
+            'propagate': False,
+        },
+        'django.db': {
+            'handlers': ['console', 'default'],
+            'level': 'INFO', # Set to DEBUG to see SQL output
+            'propagate': False,
+        },
+        'django.request': {
+            'handlers': ['console', 'default'],
+            'level': 'INFO',
+            'propagate': False,
+        },
+        'pylti.common': {
+            'handlers': ['console', 'default'],
+            'level': 'DEBUG',
+            'propagate': False,
+        },
+        'syllabuspdf': {
+            'handlers': ['console', 'default'],
+            'level': 'DEBUG',
+            'propagate': False,
+        },
+    },
+}

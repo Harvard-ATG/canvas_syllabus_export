@@ -40,3 +40,9 @@ secure.py
 
 # Ignore Pipfile.lock
 Pipfile.lock
+
+# Ignore pycharm workspaces
+.idea
+
+# Ignore pyenv version
+.python-version

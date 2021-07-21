@@ -1,18 +1,19 @@
-from __future__ import absolute_import
-from django.shortcuts import render, redirect, reverse
-from django.http import HttpResponse, Http404, HttpResponseBadRequest
+from django.core.exceptions import PermissionDenied
+from django.shortcuts import render, redirect
+from django.http import Http404, HttpResponseBadRequest, HttpResponseServerError
 from django.views.decorators.csrf import csrf_exempt
-from django.views.generic import View
 from django.conf import settings
 from lti_provider.lti import LTI
 from pylti.common import LTIException
-from urllib.parse import parse_qs, urlparse, urlencode, urlunparse
+from canvas_sdk.exceptions import (CanvasAPIError, InvalidOAuthTokenError)
+
 from .apirequest import fetch_syllabus, fetch_allevents, fetch_assigngroups
 from .forms import SettingsForm
+
 import logging
 
 
-logger = logging.getLogger(__name__)
+logger = logging.getLogger('syllabuspdf')
 
 
 @csrf_exempt
@@ -28,13 +29,20 @@ def process_lti_launch_request_view(request):
     try:
         request_is_valid = lti.verify(request)
     except LTIException:  # oauth session may have timed out or the LTI key/secret pair may be wrong
-        return HttpResponseBadRequest('<p>Something went wrong. Reload the page, or contact atg@fas.harvard.edu.<p>')
+        logger.exception("LTI launch failed")
+        return HttpResponseBadRequest('<p>LTI launch failed. Please contact atg@fas.harvard.edu for assistance.<p>')
 
     if is_basic_lti_launch and request_is_valid:
         # Store the custom_canvas_course_id in the request's session attribute.
-        request.session['course_id'] = request.POST.get('custom_canvas_course_id')
-        return redirect('syllabuspdf:index')
+        course_id = request.POST.get('custom_canvas_course_id')
+        user_id = request.POST.get('user_id')
+        logger.info(f"LTI launch valid: course_id={course_id} user_id={user_id}")
+        request.session['user_id'] = user_id
+        request.session['course_id'] = course_id
+        request.session.modified = True
+        return redirect('syllabuspdf:index', permanent=False)
     else:
+        logger.info(f"LTI launch invalid: is_basic_lti_launch={is_basic_lti_launch} request_is_valid={request_is_valid}")
         raise PermissionDenied
 
 
@@ -42,16 +50,22 @@ def process_lti_launch_request_view(request):
 def index(request):
     # Get course id from session
     try:
-        logger.debug('Obtaining course id from session ...')
-        courseid = request.session['course_id']
-        logger.debug('Course id is %s' % (courseid))
+        course_id = request.session['course_id']
+        user_id = request.session['user_id']
+        logger.info(f"Syllabus index: course_id={course_id} user_id={user_id}")
     except:
+        logger.error("Syllabus index: canvas course ID not found in session")
         raise Http404('Course ID not found')
 
     # Get content via API calls
-    syllabus = fetch_syllabus(courseid)
-    (dated, undated) = fetch_allevents(courseid)
-    groups = fetch_assigngroups(courseid)
+    try:
+        syllabus = fetch_syllabus(course_id)
+        (dated, undated) = fetch_allevents(course_id)
+        groups = fetch_assigngroups(course_id)
+        logger.info("Syllabus index: Canvas API data loaded successfully: course_id={course_id} user_id={user_id}")
+    except (CanvasAPIError, InvalidOAuthTokenError):
+        logger.exception(f"Syllabus index: Canvas API error: course_id={course_id} user_id={user_id}")
+        return HttpResponseServerError(f"Error: failed to load syllabus and assignment data from Canvas")
 
     # Check for initial load of page through presence of hidden field
     if 'hidden_field' in request.GET:
