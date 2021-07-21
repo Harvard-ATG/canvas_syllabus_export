@@ -62,7 +62,7 @@ def index(request):
         syllabus = fetch_syllabus(course_id)
         (dated, undated) = fetch_allevents(course_id)
         groups = fetch_assigngroups(course_id)
-        logger.info("Syllabus index: Canvas API data loaded successfully: course_id={course_id} user_id={user_id}")
+        logger.info(f"Syllabus index: Canvas API data loaded successfully: course_id={course_id} user_id={user_id}")
     except (CanvasAPIError, InvalidOAuthTokenError):
         logger.exception(f"Syllabus index: Canvas API error: course_id={course_id} user_id={user_id}")
         return HttpResponseServerError(f"Error: failed to load syllabus and assignment data from Canvas")
