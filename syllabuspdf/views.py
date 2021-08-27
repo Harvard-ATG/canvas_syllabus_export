@@ -1,6 +1,6 @@
 from django.core.exceptions import PermissionDenied
 from django.shortcuts import render, redirect
-from django.http import Http404, HttpResponseBadRequest, HttpResponseServerError
+from django.http import Http404, HttpResponseBadRequest, HttpResponseServerError, HttpResponse, HttpResponseNotFound
 from django.views.decorators.csrf import csrf_exempt
 from django.conf import settings
 from lti_provider.lti import LTI
@@ -100,3 +100,31 @@ def index(request):
         'settings': form_settings
     }
     return render(request, 'syllabuspdf/index.html', context)
+
+@csrf_exempt
+def logger_view(request):
+    '''
+    Logger API - to log onclick event from Generate PDF button
+    '''
+    # Note we could make this more dynamic and parameterize the request
+    try:
+        course_id = None
+        user_id = None
+        if "course_id" not in request.session and "user_id" not in request.session:
+            raise Exception("course_id", "user_id")
+        if "course_id" not in request.session:
+            raise Exception("course_id", None)
+        if "user_id" not in request.session:
+            raise Exception("user_id", None)
+        course_id = request.session['course_id']
+        user_id = request.session['user_id']
+        logger.info(f"Syllabus index: Syllabus PDF Generated: course_id={course_id} user_id={user_id}")
+        return HttpResponse(status=200)
+    except Exception as e:
+        err1,err2 = e.args
+        if err1 and err2:
+            logger.error(f"Syllabus index: Syllabus PDF Not Generated: canvas {err1} and {err2} not found in session")
+            return HttpResponseNotFound(f'{err1} and {err2} not found')
+        if err1:
+            logger.error(f"Syllabus index: Syllabus PDF Not Generated: canvas {err1} not found in session")
+            return HttpResponseNotFound(f'{err1} not found')
