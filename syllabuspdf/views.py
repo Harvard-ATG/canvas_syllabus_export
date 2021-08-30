@@ -108,23 +108,10 @@ def logger_view(request):
     '''
     # Note we could make this more dynamic and parameterize the request
     try:
-        course_id = None
-        user_id = None
-        if "course_id" not in request.session and "user_id" not in request.session:
-            raise Exception("course_id", "user_id")
-        if "course_id" not in request.session:
-            raise Exception("course_id", None)
-        if "user_id" not in request.session:
-            raise Exception("user_id", None)
         course_id = request.session['course_id']
         user_id = request.session['user_id']
         logger.info(f"Syllabus index: Syllabus PDF Generated: course_id={course_id} user_id={user_id}")
         return HttpResponse(status=200)
-    except Exception as e:
-        err1,err2 = e.args
-        if err1 and err2:
-            logger.error(f"Syllabus index: Syllabus PDF Not Generated: canvas {err1} and {err2} not found in session")
-            return HttpResponseNotFound(f'{err1} and {err2} not found')
-        if err1:
-            logger.error(f"Syllabus index: Syllabus PDF Not Generated: canvas {err1} not found in session")
-            return HttpResponseNotFound(f'{err1} not found')
+    except KeyError as e:
+        logger.error(f"Syllabus index: Syllabus PDF Not Generated: canvas {e} not found in session")
+        return HttpResponseNotFound(f'{e} not found')
