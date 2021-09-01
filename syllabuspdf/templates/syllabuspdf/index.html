@@ -7,6 +7,20 @@
 {% endblock %}
 
 {% block content %}
+<script>
+	function call_logger() {
+		// Note: non-blocking incase a syllabus is generated offline, could nest it in the .then()
+		window.print();
+		fetch('/logger/',
+			{
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/json'
+				}
+			}
+		)
+	}
+  </script>
 <!-- Menu for toggling options and generating PDF -->
 <header id="syllabus-export">
 	<form action="{% url 'syllabuspdf:index' %}" method="get">
@@ -39,7 +53,7 @@
 			<div class="menu-btns">
 				<input id="id_hidden_field" name="hidden_field" type="hidden" value= "{{ form.hidden_field.value }}" />
 				<input type="submit" class="btn" value="Preview"/>
-				<input type="button" class="btn" onClick="window.print()" value="Generate PDF"/>
+				<input type="button" class="btn" onclick="call_logger()" value="Generate PDF"/>
 			</div>
 		</fieldset>
 	</form>

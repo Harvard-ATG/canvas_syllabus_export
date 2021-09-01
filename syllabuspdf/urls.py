@@ -7,4 +7,5 @@ urlpatterns = [
     path('lti/launch/', views.process_lti_launch_request_view, name='process_lti_launch_request'),
     path('lti/config/', lti_views.LTIConfigView.as_view(), name='get_lti_xml'),
 	path('index/', views.index, name='index'),
+    path('logger/', views.logger_view, name='logger_view'),
 ]

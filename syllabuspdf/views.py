@@ -1,7 +1,8 @@
 from django.core.exceptions import PermissionDenied
 from django.shortcuts import render, redirect
-from django.http import Http404, HttpResponseBadRequest, HttpResponseServerError
+from django.http import Http404, HttpResponseBadRequest, HttpResponseServerError, HttpResponse, HttpResponseNotFound
 from django.views.decorators.csrf import csrf_exempt
+from django.views.decorators.http import require_http_methods
 from django.conf import settings
 from lti_provider.lti import LTI
 from pylti.common import LTIException
@@ -100,3 +101,19 @@ def index(request):
         'settings': form_settings
     }
     return render(request, 'syllabuspdf/index.html', context)
+
+@require_http_methods(["POST"])
+@csrf_exempt
+def logger_view(request):
+    '''
+    Logger API - to log onclick event from Generate PDF button
+    '''
+    # Note we could make this more dynamic and parameterize the request
+    try:
+        course_id = request.session['course_id']
+        user_id = request.session['user_id']
+        logger.info(f"Syllabus index: Syllabus PDF Generated: course_id={course_id} user_id={user_id}")
+        return HttpResponse(status=200)
+    except KeyError as e:
+        logger.error(f"Syllabus index: Syllabus PDF Not Generated: canvas {e} not found in session")
+        return HttpResponseNotFound(f'{e} not found')
