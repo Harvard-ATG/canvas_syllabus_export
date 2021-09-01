@@ -2,6 +2,7 @@ from django.core.exceptions import PermissionDenied
 from django.shortcuts import render, redirect
 from django.http import Http404, HttpResponseBadRequest, HttpResponseServerError, HttpResponse, HttpResponseNotFound
 from django.views.decorators.csrf import csrf_exempt
+from django.views.decorators.http import require_http_methods
 from django.conf import settings
 from lti_provider.lti import LTI
 from pylti.common import LTIException
@@ -101,6 +102,7 @@ def index(request):
     }
     return render(request, 'syllabuspdf/index.html', context)
 
+@require_http_methods(["POST"])
 @csrf_exempt
 def logger_view(request):
     '''
