@@ -2,6 +2,8 @@ from django.test import TestCase
 from ..views import logger_view
 
 class Logger_View_TestCase(TestCase):
+    def setUp(self):
+        self.method = "POST"
 
     def test_successful_logging_request(self):
         self.session = {
