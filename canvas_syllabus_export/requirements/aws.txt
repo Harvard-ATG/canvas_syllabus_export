@@ -1,7 +1,7 @@
 git+https://github.com/penzance/canvas_python_sdk@v1.2.0#egg=canvas_python_sdk==1.2.0
 Django~=2.2.0
 python_dateutil==2.8.1
-redis==3.5.3
+redis==4.5.3
 django-redis-cache==2.1.1
 lti==0.9.5
 git+https://github.com/Harvard-ATG/django-lti-provider.git@course-navigation#egg=django-lti-provider
